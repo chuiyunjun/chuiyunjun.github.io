@@ -162,11 +162,19 @@
               <img src="assets\img\architecture.png" alt="">
               </li>
             </ul>
-            <p> We also proposed 2 kinds of solutions to analysis prediction result</p>
+            <p> We also proposed 2 kinds of solutions to analysis prediction result and find out anomalies</p>
+            <ul>
+              <li><p>1. Threshold-based detection</p>
+              <p> based on system specifications. An alert will be generated if the predicted parameter values lie outside of a predefined range.</p> 
+              </li>
+              <li><p>2. Sliding-window confidence interval detection</p>
+              <p>the predicted values will be compared to the actual values within a predefined sliding window of consideration. If the predicted values are outside of a predefined number of standard deviations from the actual values, an alert will be generated.</p>
+              </li>
+            </ul>
             <br/>
             <h3> Final Solution</h3>
-            <p>We are still in the progress. Part of current progress could be posted here. The diagram below shows comparison of predicted value and true value of supply fan speed, which indicates that our developed model now obtain the ability to detect the anomalies.
-            Next step : we need to predict more parameters and apply statistical methods to analyze and find out anamolies. Also we need to build integretion platform infrastructure for the convenience of connecting with client's system.</p>
+            <p>We are still in the progress. Part of current progress in modeling from my side could be posted here. The diagram below shows comparison of predicted value and true value of supply fan speed, which indicates that our developed model now obtain the ability to detect the anomalies.</p>
+            <p>Next step : we need to predict more parameters and apply statistical methods to analyze and find out anomalies. Also we need to build integretion platform infrastructure for the convenience of connecting with client's system.</p>
             <br/>
             <img src="assets\img\pred.png" alt=""><img src="assets\img\act.png" alt="">
             <br/>
@@ -194,7 +202,6 @@ The design will complete training during company off-hours (overnight or weekend
                 </li>
               </ul>
             <br/>
-            <h3> Current Progress</h3>
           </div>
 
           <div class="col-lg-4">
