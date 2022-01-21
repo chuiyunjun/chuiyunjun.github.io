@@ -144,14 +144,14 @@
               Since each subset of inputs and outputs has implicit biases and behaviours, the team can select the best-suited  machine learning model for each task, which potentially improves accuracy. 
               In the single target model, we treat each output variable as independent of each other, assuming no underlying relationships, or sequential order, between the target variables. 
               Essentially, singular outputs are directly predicted using the historical dataset of the subset of input features that it depends on.</p> 
-              <img src="assets\img\d1.png" alt="">
+              <!--img src="assets\img\d1.png" alt=""-->
               </li>
               <li><p>2. Deep Regressor Chain</p>
               <p>The machine learning model must predict multiple continuous output parameters from multiple inputs. This type of problem is classified as a Multi Task Regression (MTR). 
               Since the goal is to create a digital twin, omitting the relationships between the tasks and target variables is insufficient to represent the VAV and CU systems. 
               Thus, the team proposes capturing sequential relationships through using Deep Regressor Chains (DRC) for MTR. In the DRC model, the first model is trained independently of the other target parameters, 
               and the predicted values are added to the training set of the next target parameter that depends on it. Thus, redundancy is minimized because shared input parameters are only passed into the chain once.</p>
-              <img src="assets\img\d2.png" alt="">
+              <!--img src="assets\img\d2.png" alt=""-->
               </li>
               <li><p>3. apply Multi-task learning</p>
               <p>To incorporate all inputs in parallel and learn variable relationships autonomously, the team proposes to apply Multi-Task Learning (MTL). 
