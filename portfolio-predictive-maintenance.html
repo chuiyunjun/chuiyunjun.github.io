@@ -198,8 +198,42 @@
               <p></p> 
               
               </li>
-              <li><p>2. Anomaly detection</p>
-              <p></p>
+              <li><h4>2. Anomaly detection</h4>
+              <p>The second stage of the model pipeline is to use the prediction models to generate forecasts for the next time horizon,
+                 and then monitor this prediction for any anomalies. The anomaly detection task is unsupervised, since we do not know whether the given CPPIB data is normal,
+                  or contains malfunctions. Thus, the team explored two state-of-the-art outlier detection methods, 
+                  which are detailed in the following sections. Both methods selected are global outlier detection methods, 
+                  meaning that the entire history is considered when we are deciding whether a point is anomalous. 
+                  We decided against locally-based methods because looking at neighboring points to classify anomalies is susceptible to data drift, 
+                  which would prevent us from detecting progressive degradation of the mechanical system. In addition to the output variable, 
+                  we accounted for temporal variables such as hour and day of the week, as well as the weather. 
+                  Since outlier detection methods depend on distances and densities, 
+                  a preprocessing step was taken to normalize the inputs to account for differences in scale and to minimize skew. 
+                  Both algorithms are implemented using the PyOD python package. 
+                  <ul>
+                    <li><h5 class="bold">a.Statistical Approach - Histogram-based Outlier Score (HBOS) </h5>
+                    <p>To begin, we fit a Histogram-based Outlier Score (HBOS) model to the dataset and classify each data point as anomalous (score = 1) or not.
+                       For each input dimension, the HBOS algorithm constructs a histogram, representing the density in each bin, or range, of values.
+                        The HBOS of each point is the sum of the log(density value) for all output features. The mathematical definition of the HBOS is shown in equation.
+                    </p>
+                    <img src="assets\img\hbos.png" alt="">
+                    <p>The HBOS assumes that each input dimension is independent and assumes a gaussian distribution of frequencies.
+                       Statistical density-based values are simple to calculate, and HBOS is very effective if the aforementioned assumptions hold true.
+                        However, due to these distributional assumptions, the algorithm is not robust in real-life conditions, which can often have extreme or
+                         non-gaussian behaviour and dependencies between variables. </p>
+                    <br/>
+                    <li><h5 class="bold">b.Tree-based Approach - Isolation Forest (iForest)</h5>
+                    <p>Instead of building a profile of normal instances like in HBOS, the iForest method seeks to isolate anomalous points through sub-sampling [21]. This approach assumes two characteristics of anomalous points:
+                      (i) There are few of them
+                      (ii) They have attribute values that are very different from other points
+                      Since anomalies are “few and different,” they are easy to isolate - when we split on attributes, they will be close to the root of the tree whereas normal points will be deeper in the tree. An iForest is an ensemble of iTrees that extract instances with short average path length (this path length is the anomaly score). Each tree has a small sub-sample size, which prevents “swamping,” which is when a normal instance is misclassified as anomalous because it is surrounded by anomalous points, or “masking” which is the inverse[22]. It also does not depend on density or distance calculations, which makes it faster and less sensitive to the way normalization or scaling is performed. Other ML-based methods such as KNN, SVMs, etc are impractical for the large number of data points we have and the frequency of new data, but iForests run in linear time. Despite being very efficient and more sophisticated than HBOS, this tree-based method is less explainable and hard to visualize. Additionally it suffers from a bias as a result of the parallel cuts that are made during branching:
+                      </p>
+                    <img src="assets\img\isolation.png" alt="">
+                    <p>As we can see in the figure, each split divides the plane in half, so the corners are more likely to be classified as anomalous than the four lighter areas at the middle of each axis. 
+                    </p>
+                    <br/>
+                  </ul>
+              </p>
               <!--img src="assets\img\d2.png" alt=""-->
 
             </ul>
