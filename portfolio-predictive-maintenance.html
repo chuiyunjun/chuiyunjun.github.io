@@ -174,8 +174,14 @@
                      This regression model also allows for a multivariate output, which is useful if future iterations of the design include more than one output variable.</p> 
                   <br/>
                   <p class="bold"> 1. Testing for stationary series</p>
+                  <p>VAR is to be used on stationary series, where none of the variables have an upwards to downwards trend over time. In both the Air Flow and the Valve models, all variables were shown to be stationary through use of the Augmented Dickey Fuller test (ADF)</p>
                   <br/>
-                  <p class="bold">2. Cointegration Analysis</p>
+                  <p class="bold"> 2. Cointegration Analysis</p>
+                  <p>Similar to correlation in linear regression, cointegration is used to assess whether the selected variables move together over time, and have long-term relationships. Significant cointegration behavior is confirmed in both the Air Flow and Valve models, meaning each identified variable is affected by the other variables and VAR is suitable. Notice below how the setpoints are not cointegrated with the other variables even though there is correlation, because setpoints do not move synchronously with the other features.
+                  </p>
+                  <br/>
+                  <p class="bold"> 3. Determining the lag parameter</p>
+                  <p>Although the regression coefficients are fitted on the entire training dataset, the VAR model requires users to specify the order of the VAR, or how many past time steps each current value is affected by (lag, or look-back). Unlike in the neural-network based model, it is costly and impractical to lag as much as 48 steps in a simple regression model. Thus, we look at when the Akaike Information Criterion (AIC), which estimates prediction error and therefore model quality, begins to plateau. In both cases, we see that this happens around VAR of order 5, meaning that each prediction includes information from the last 5 time steps.                   </p>
                   <br/>
                   <h6>b. RNN</h6>
                   <p>GRU</p>
