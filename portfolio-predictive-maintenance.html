@@ -238,7 +238,16 @@
 
             </ul>
             <h3> Experiments </h3>
-
+            <ul>
+              <li><h4>3.1 Data Preparation</h4>
+                <p>After data preparation and model selection, the team designed a machine learning workflow to train the models. Out of the 70,000 collected data samples, 60,000 are used for training, 10,000 are used for testing.</p>
+              <li><h4>3.2 Hyperparameter setup</h4>
+                Both the LSTM and the GRU model have 1 hidden layer with 7 features in the hidden state.
+                 was trained over 1200 epochs with a learning rate of 0.008. There are 55000 samples in the training dataset, 5000 samples in the validation dataset,
+                  and 10000 samples in the test dataset. The sequence length for the training samples is 48 datapoints (4 hours), 
+                  and the sequence length for the predicted samples is 24 data points (2 hours).
+                   The hyperparameter δ for Huber loss is set as 0.03 to maximize performance
+            </ul>
 
             <h3> Evaluation</h3>
             <br/>
