@@ -248,12 +248,45 @@
                   and the sequence length for the predicted samples is 24 data points (2 hours).
                    The hyperparameter δ for Huber loss is set as 0.03 to maximize performance
               <li><h4>3.3 Prediction Results</h4>
+                MAE (Mean Abosolute Error) is applied to evaluate the performance of the model. In the table, it is obvious that RNN performs better than VAR.
                 <img src="assets\img\prediction_results.png" alt="">
                 <br/>
               <li><h4>3.4 Prediction Sample Visualization</h4>
+                We also visualize some samples for comparison
                 <img src="assets\img\pre_viz1.png" alt=""><img src="assets\img\pre_viz2.png" alt="">
                 <br/>
               <li><h4>3.5 Anomaly Detection Results</h4>
+                <h5>3.5.1 Setting the Contamination Fraction</h4>
+                  <p>A primary drawback of not having labelled anomaly data is that we have to make certain assumptions about the fraction of outliers that are present in the original dataset. This is called the fraction of contamination, which is a necessary parameter for each unsupervised learning method. As shown below, the number of identified anomaly points depends largely on this number, which we can only set as an arbitrary value if we do not have prior knowledge. 
+                    Results for varying contamination fraction settings are for HBOS as follows: 
+                    </p>
+                    <img src="assets\img\cont0.1.png" alt="">
+                    <br/>
+                    <img src="assets\img\cont0.5.png" alt="">
+                    <br/>
+                <h5>3.5.2 Comparison of Methods and Results Discussion</h5>
+                <img src="assets\img\comp1.png" alt=""><img src="assets\img\comp2.png" alt="">
+                <br/>
+                  <p>For the valve position, we see that anomalous points are detected at different parts in the dataset. In the isolation forest, we see that the anomalies (in red) occur at the onset of values that are very different from what we have previously seen. For example, the first time that the valve position dips down is marked in red, as well as the first time it dips to extremely low values that are close to zero. In the HBOS, it seems like there is a cutoff below values of around 50, and those are classified as anomalous. In this case, iForest is better suited to identifying when irregular behaviour begins to happen, since HBOS just tells us whenever the valve position has a low value. However, low values aren’t synonymous with anomalies - it could just be a systematic error such as when the system starts up or shuts down or changes modes. 
+                  </p>
+                  <img src="assets\img\comp3.png" alt=""><img src="assets\img\comp4.png" alt="">
+                <br/>
+                  <p>In the airflow model, we again see that the iForest and HBOS categorize anomalies at different points. As highlighted on the figure above, there are four key differences to discuss:
+                  </p>
+                  <ul>
+                    <li> 1. In the first circle, the isolation forest did not pick up on the first spike in the time series while the HBOS did
+                    <li> 2. The isolation forest classified the last spike in the time series as anomalous, but it is not greatly different from surrounding values
+                    <li> 3. HBOS does not classify the highest value in the timeseries as anomalous, but instead only labels the values around it as anomalous 
+                    <li> 4. HBOS labels ‘0’ points as anomalous while iForest doesn’t 
+
+                  </ul>
+                  <p>For (1) and (2), we know that iForest measures outliers by average path length and the sub-sampling is done using random selection. Thus, depending on the subsamples chosen, what is defined as being “different enough” from the other points to be classified as an anomaly could change. We also know that when there are a lot of anomalous points in a sub-sample, they could aggregate in a cluster and be hard to detect.
+                  </p>
+                  <p>For (3), we know that the HBOS is very sensitive to the selection of number of bins and the width, as well as how the normalization is done (in this case we use min-max normalization), all of which could affect which values are flagged as anomalous. Thus, hyperparameter tuning and exploring alternative normalization methods could help pinpoint what parameters affect which points. 
+                  </p>
+                  <p>For (4), HBOS is flags the points that are irregular with respect to the empirical distribution, so the ‘0’ points may fall outside of the normal range, whereas in iForest, each anomalous point has to be sufficient infrequent and different. The ‘0’ values are not uncommon, due to it being caused by system shut-offs, so would not be classified as anomalous by iForest. It is also important to note that since HBOS is a density-based method, it assumes that the underlying distribution is gaussian. This could also lead to skewing of the As we can deduce from the airflow model, further hyperparameter tuning is necessary to make a definitive statement about the performance of both outlier detection algorithms. However, hyperparameter tuning would require prior knowledge about which points should be outliers, which is currently unavailable to us. 
+
+                  </p>
             </ul>
 
             <h3> Evaluation</h3>
