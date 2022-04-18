@@ -255,7 +255,7 @@
                 We also visualize some samples for comparison
                 <img src="assets\img\pre_viz1.png" alt=""><img src="assets\img\pre_viz2.png" alt="">
                 <br/>
-              <li><h4>3.5 Anomaly Detection Results</h4>
+              <li><h4>3.5 Anomaly Detection Results & Discussions</h4>
                 <h5>3.5.1 Setting the Contamination Fraction</h4>
                   <p>A primary drawback of not having labelled anomaly data is that we have to make certain assumptions about the fraction of outliers that are present in the original dataset. This is called the fraction of contamination, which is a necessary parameter for each unsupervised learning method. As shown below, the number of identified anomaly points depends largely on this number, which we can only set as an arbitrary value if we do not have prior knowledge. 
                     Results for varying contamination fraction settings are for HBOS as follows: 
@@ -294,22 +294,19 @@
             <p>The final solution is to be completed but it should following the next requirements. After we complete the PoC, i can join evaluating it by requirements based on my computer science knowledge</p>
             <ul>
                 <li><p>Autonomous</p>
-                <p>The design will generate predictions based on input data without supervision.</p>
+                <p>The design builds an antomated pipeline taking raw data files and finally visualizing anomaly detection analysis. UI automation also makes the pipeline more user-friendly.</p>
                 </li>
                 <li><p>Reliable</p>
-                <p>The design will generate real-time predictions that are reasonably close to the actual operational state of the physical system.The design will achieve 90% training accuracy at the minimum</p>
+                <p>The design will generate real-time predictions that are reasonably close to the actual operational state of the physical system.The design will achieve 90% training accuracy at the minimum (MAPE is over 90% after samples contianing actual value 0 are removed)</p>
                 </li>
                 <li><p>Computationally efficient</p>
-                <p>The design will consume the minimum required computational resources and within available computational resources. The design will require at most 16GB RAM to train and make predictions which can be achieved on standard personal computers. The design will generate predictions at the same frequency as data input.
-                    The design will make predictions at 5-minute intervals (same as input data).
-                    The design will be able to be re-calibrated as new historical data becomes available.
-                    The design will complete training during company off-hours (overnight or weekend).</p>
+                <p>The pipeline applies high-quanlity GRU codes, allowing gpu to accelerate computing (more than 60 times) if users have access to GRUs. It is also compatible with CPU running.</p>
                 </li>
                 <li><p>Generalizable </p>
-                <p>Given the sensor data and specific building characteristics, the design will have the capacity to model different buildings with similar performance accuracy.</p>
+                <p>Given the sensor data and specific building characteristics, the design has the capacity to model different VAVs in the building.</p>
                 </li>
                 <li><p>Modularity</p>
-                <p>The design can be isolated into separate components that are tested individually. The failure of one component will not impact other components.</p>
+                <p>The design decoupled prediction, anomaly detection and UI, which makes following software maintenance and upgrading more convienent. The pipeline could be run in the sandbox (conda), which avoids that software setup conflicts users' previous local environement. </p>
                 </li>
               </ul>
             <br/>
