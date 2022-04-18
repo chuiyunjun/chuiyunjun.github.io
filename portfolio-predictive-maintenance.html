@@ -183,8 +183,17 @@
                   <p class="bold"> 3. Determining the lag parameter</p>
                   <p>Although the regression coefficients are fitted on the entire training dataset, the VAR model requires users to specify the order of the VAR, or how many past time steps each current value is affected by (lag, or look-back). Unlike in the neural-network based model, it is costly and impractical to lag as much as 48 steps in a simple regression model. Thus, we look at when the Akaike Information Criterion (AIC), which estimates prediction error and therefore model quality, begins to plateau. In both cases, we see that this happens around VAR of order 5, meaning that each prediction includes information from the last 5 time steps.                   </p>
                   <br/>
-                  <h6>b. RNN</h6>
-                  <p>GRU</p>
+                  <h6>b. LSTM</h6>
+                  <p>One type of RNN is Long Short-Term Memory (LSTM). LSTM models are capable of learning the long-term dependencies between variables. They are suitable for time-series data that may have lags of unknown duration between significant events. This makes the LSTM model a good candidate for HVAC sensor data which spans over months.
+                  </p>
+                  <img src="assets\img\lstm.png" alt="">
+                  <br/>
+                  <h6>c. GRU</h6>
+                  <p> Another type of RNN the team examined was the Gated-Recurrent Unit (GRU). GRU is a type of RNN that is very similar to LSTM. The GRU model has a slight difference in model architecture (it has fewer gates and therefore fewer parameters). 
+                  </p>
+                  <img src="assets\img\gru.png" alt="">
+                  <br/>
+
                 </ul>
               <p></p> 
               
