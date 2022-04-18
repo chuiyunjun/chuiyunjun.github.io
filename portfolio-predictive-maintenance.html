@@ -119,7 +119,7 @@
             <h3>| <a href="https://youtu.be/y4Ak1dqRhBI">UI Demo (Training)</a> | <a href="https://youtu.be/UvohrSt-ooE">UI Demo (Analysis)</a> | </h3>  
             <br/>
             <br/>
-            <h3> Intorduction</h3>
+            <h3>1. Intorduction</h3>
             <br/>
 
             <p> The project aims to design and build the infrastructure of a ML-based analytics platform for Modern Niagara Group (MNG). 
@@ -128,14 +128,14 @@
                 which assists in scheduling maintenance service in advance</p>
             <p> </p>
             <br/>
-            <h3> Methods</h3>
+            <h3>2. Methods</h3>
             <br/>
             <p> We aim to predict several key sensor parameters of HVAC systems based on historical data of CPPIB building shared by Modern Niagara Group, in order to find the possibility of impending anomalies.</p>
             <p> </p>
             <ul>
-              <li><p>1. System parameters predictions</p>
+              <li><h4>2.1 System parameters predictions</h4>
                 <ul>
-                  <li><p>1.1 Features selection</p>
+                  <li><h5>2.1.1 Features selection</h5>
                   <p>To create a digital representation of the AHU and VAV boxes, the values of variables that represent the state of the system must be predicted.
                      We considered all variables in the dataset provided by MNG to decide which to predict in order to create the digital twin representation of the system. 
                     The variables that were identified as setpoints, such as Discharge Air.Temperature Cooling Setpoint and Zone Air.Temperature Cooling Setpoint,
@@ -164,8 +164,12 @@
                     </p> 
                     <img src="assets\img\corr.png" alt="">
                   </li>
-                  <li><p>1.2 ML models</p>
-                  <p></p>
+                  <li><h5>2.1.2 ML desgin and models selection</h5>
+                  <p>We selected a statistical method called vector-autoregression(VAR) as our baseline model and two RNN models (LSTM and GRU) as our main prediction models.</p>
+                  <br/>
+                  <h6>a. VAR </h6>
+                  <h6>b. RNN</h6>
+                  <p>GRU</p>
                 </ul>
               <p></p> 
               
