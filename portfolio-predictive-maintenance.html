@@ -211,7 +211,7 @@
                   a preprocessing step was taken to normalize the inputs to account for differences in scale and to minimize skew. 
                   Both algorithms are implemented using the PyOD python package. 
                   <ul>
-                    <li><h5 class="bold">a.Statistical Approach - Histogram-based Outlier Score (HBOS) </h5>
+                    <li><h5 class="bold">a. Statistical Approach - Histogram-based Outlier Score (HBOS) </h5>
                     <p>To begin, we fit a Histogram-based Outlier Score (HBOS) model to the dataset and classify each data point as anomalous (score = 1) or not.
                        For each input dimension, the HBOS algorithm constructs a histogram, representing the density in each bin, or range, of values.
                         The HBOS of each point is the sum of the log(density value) for all output features. The mathematical definition of the HBOS is shown in equation.
@@ -222,7 +222,7 @@
                         However, due to these distributional assumptions, the algorithm is not robust in real-life conditions, which can often have extreme or
                          non-gaussian behaviour and dependencies between variables. </p>
                     <br/>
-                    <li><h5 class="bold">b.Tree-based Approach - Isolation Forest (iForest)</h5>
+                    <li><h5 class="bold">b. Tree-based Approach - Isolation Forest (iForest)</h5>
                     <p>Instead of building a profile of normal instances like in HBOS, the iForest method seeks to isolate anomalous points through sub-sampling [21]. This approach assumes two characteristics of anomalous points:
                       (i) There are few of them
                       (ii) They have attribute values that are very different from other points
@@ -247,6 +247,13 @@
                   and 10000 samples in the test dataset. The sequence length for the training samples is 48 datapoints (4 hours), 
                   and the sequence length for the predicted samples is 24 data points (2 hours).
                    The hyperparameter δ for Huber loss is set as 0.03 to maximize performance
+              <li><h4>3.3 Prediction Results</h4>
+                <img src="assets\img\prediction_results.png" alt="">
+                <br/>
+              <li><h4>3.4 Prediction Sample Visualization</h4>
+                <img src="assets\img\pre_viz1.png" alt=""><img src="assets\img\pre_viz2.png" alt="">
+                <br/>
+              <li><h4>3.5 Anomaly Detection Results</h4>
             </ul>
 
             <h3> Evaluation</h3>
