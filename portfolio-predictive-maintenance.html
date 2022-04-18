@@ -122,61 +122,61 @@
             <h3> Intorduction</h3>
             <br/>
 
-            <p> The project aims to design and build the infrastructure of a ML-based analytics platform for Modern Niagara Group. 
+            <p> The project aims to design and build the infrastructure of a ML-based analytics platform for Modern Niagara Group (MNG). 
                 This system will interact with mechanical, electrical, and IT systems and touches multiple 
                 engineering disciplines outside of the IT space. We apply machine learning technologies to predict HVAC system anomalies, 
                 which assists in scheduling maintenance service in advance</p>
-            <p> I serve as a secondary team leader of the team, leading the machine learning modeling work by bringing together my computer science knowledge. In the past months, I focoused on the work of picturing multiple pontential ML architecure solutions. Now my teammates and I are in the progress of developing. </p>
+            <p> </p>
             <br/>
             <h3> Methods</h3>
             <br/>
             <p> We aim to predict several key sensor parameters of HVAC systems based on historical data of CPPIB building shared by Modern Niagara Group, in order to find the possibility of impending anomalies.</p>
             <p> </p>
             <ul>
-              <li><p>1. individual ML model for each parameter</p>
-              <p>The team identified five different tasks (groups of inputs and outputs) that are necessary in creating a digital representation of the VAV and CU systems. 
-              Notably, predicting each selected output only requires a subset of the input features, and therefore each sub-problem can be solved separately, learning separate smaller sets of model parameters. 
-              Since each subset of inputs and outputs has implicit biases and behaviours, the team can select the best-suited  machine learning model for each task, which potentially improves accuracy. 
-              In the single target model, we treat each output variable as independent of each other, assuming no underlying relationships, or sequential order, between the target variables. 
-              Essentially, singular outputs are directly predicted using the historical dataset of the subset of input features that it depends on.</p> 
+              <li><p>1. System parameters predictions</p>
+                <ul>
+                  <li><p>1.1 Features selection</p>
+                  <p>To create a digital representation of the AHU and VAV boxes, the values of variables that represent the state of the system must be predicted.
+                     We considered all variables in the dataset provided by MNG to decide which to predict in order to create the digital twin representation of the system. 
+                    The variables that were identified as setpoints, such as Discharge Air.Temperature Cooling Setpoint and Zone Air.Temperature Cooling Setpoint,
+                     were automatically disregarded as the value of these variables at a given time is known and thus there is nothing to predict. Other variables,
+                      such as Supply Fan.Speed and Primary Air Damper.Damper Position, were disregarded as the timestep of the dataset (5 minutes) is too large to generate 
+                      accurate predictions for these variables. This is because these variables change continuously in response to other variables.
+                       For example, Supply Fan.Speed changes continuously to maintain the static pressure in the CU. Some variables, such as Discharge Air.Static Pressure,
+                        had little variation historically and matched the setpoint. As a result, there would be little value in predicting these variables. 
+                    The team arrived at two variables that held merit for prediction, Primary Air. Air Flow and Fin Tube Radiation.Valve Position.
+                     The prediction of these variables can be separated into different tasks. The following section details the methodology of feature selection.
+                      Each task and its inputs and outputs are then explained.
+                    The inputs and outputs considered are those that exist in the datasets provided by MNG. 
+                    Thus, if there is an input that affects an output specified by one of the tasks below, but this input is not tracked by MNG,
+                     it is not discussed. The designed solution accounts for these missing variables.</p>
+                     <br/>
+                    <p> When determining which input variables to use for each task, the team utilized causal relationship by domain knowledge and correlated relationship by Spearman Correlation Coefficient.
+                       The Spearman Correlation Coefficient measures the strength and direction of association between two variables. 
+                       It is a number ranging from -1 to 1. A Spearman Correlation Coefficient close to 1 indicates a very strong positive relationship between two variables,
+                        while a Coefficient close to 0 indicates no or a negligible relationship.
+                         A heat map of the Spearman Correlation Coefficient for the variables in the dataset is shown in the figure .
+                          For both Primary Air. Air Flow and Fin Tube Radiation.Valve Position, the team used the Spearman Correlation Coefficient
+                           to determine the relationship between the variable in question and all other variables in the MNG dataset. 
+                           For variables that had high Spearman Correlation Coefficients, the team used domain knowledge to determine if there was 
+                           a causation relationship between the variables or if it was only a correlation relationship. 
+                           Domain knowledge was also used to identify any other variables in the dataset that would be useful as inputs. 
+                    </p> 
+                  </li>
+                  <li><p>1.2 ML models</p>
+                  <p></p>
+                </ul>
+              <p></p> 
               <!--img src="assets\img\d1.png" alt=""-->
               </li>
-              <li><p>2. Deep Regressor Chain</p>
-              <p>The machine learning model must predict multiple continuous output parameters from multiple inputs. This type of problem is classified as a Multi Task Regression (MTR). 
-              Since the goal is to create a digital twin, omitting the relationships between the tasks and target variables is insufficient to represent the VAV and CU systems. 
-              Thus, the team proposes capturing sequential relationships through using Deep Regressor Chains (DRC) for MTR. In the DRC model, the first model is trained independently of the other target parameters, 
-              and the predicted values are added to the training set of the next target parameter that depends on it. Thus, redundancy is minimized because shared input parameters are only passed into the chain once.</p>
+              <li><p>2. Anomaly detection</p>
+              <p></p>
               <!--img src="assets\img\d2.png" alt=""-->
-              </li>
-              <li><p>3. apply Multi-task learning</p>
-              <p>To incorporate all inputs in parallel and learn variable relationships autonomously, the team proposes to apply Multi-Task Learning (MTL). 
-              MTL aims to find common features between tasks, as sharing features among tasks as a means to learning representations which capture invariant properties to tasks can be highly beneficial. 
-              Essentially, all input parameters will be encoded in the shared layers and then the MTL model will process the data into feature-specific layers. 
-              In the feature specific layers, there are layers for time series prediction and several linear layers. For each feature, we will choose a model to employ. 
-              Finally, we will get the output parameter values. 
-              The MTL model eliminates redundancy in inputs and model parameters and allows for coupling between tasks, so that they send updates to each other.</p>
-              <img src="assets\img\architecture.png" alt="">
-              </li>
+
             </ul>
-            <p> We also proposed 2 kinds of solutions to analysis prediction result and find out anomalies</p>
-            <ul>
-              <li><p>1. Threshold-based detection</p>
-              <p> based on system specifications. An alert will be generated if the predicted parameter values lie outside of a predefined range.</p> 
-              </li>
-              <li><p>2. Sliding-window confidence interval detection</p>
-              <p>the predicted values will be compared to the actual values within a predefined sliding window of consideration. If the predicted values are outside of a predefined number of standard deviations from the actual values, an alert will be generated.</p>
-              </li>
-            </ul>
-            <br/>
-            <h3> Progress</h3>
-            <ul>
-              <li><p>1. Proposal</p>
-              <p><a href="./assets/files/proposal.pdf">Proposal</a></p> 
-              </li>
-              <li><p>2. Proof-of-Concept Phase 1 report</p>
-                <p><a href="./assets/files/poc-phase1.pdf">Proof-of-Concept (Phase 1)</a></p>
-              </li>
-            </ul>
+            <h3> Experiments </h3>
+
+
             <h3> Evaluation</h3>
             <br/>
             <p>The final solution is to be completed but it should following the next requirements. After we complete the PoC, i can join evaluating it by requirements based on my computer science knowledge</p>
