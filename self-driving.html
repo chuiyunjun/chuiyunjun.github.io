@@ -134,7 +134,7 @@
             
                 <br/>
             <img src="assets\img\onestage.png" width="800" alt="">
-            <img src="assets\img\ob_steps.png" width="800" height="600" alt="">
+            <img src="assets\img\ob_steps.png" width="800" height="500" alt="">
             <br/>
             <h3>3. Tracking </h3>
             <p> This module implements a simple tracker that associates
@@ -153,30 +153,28 @@
             
             <h3> 4. Motion Forecasting</h3>
             <br/>
-            <p>The final solution is to be completed but it should following the next requirements. After we complete the PoC, i can join evaluating it by requirements based on my computer science knowledge</p>
+            <p>we provide the detections and trajectories produced by a known-good
+                detector for the objects in the Pandaset. </p>
+             <p> For each sample, an object’s current and past detections will be
+                used as inputs for the motion prediction. At each time step (t) there are N actor detections. The number of actors in a scene varies across time, as
+                old actors disappear from view and new ones appear. For each detection, its current and past states need to
+                be assembled as input to the MLP, according to the size of the time window being considered. We denote
+                the window size as W. (W = 10 would consider the past 9 frames + the current one, thus 10, etc.) For each
+                time step, we need to encode the object state at that time.
+                The baseline motion forecaster will predict the actor’s future trajectory based on its past trajectory only (no
+                LiDAR, no HD map, etc.). The inputs will be an object’s current state together with its state history, and
+                the outputs will represent the predicted state at future time steps t1,t2,...,tT , for a total of T steps, where
+                T is a hyperparameter.
+                Prediction tasks are typically concerned with time horizons of 5–10 seconds, which would normally mean
+                making predictions for 50–100 future time steps, assuming a 10Hz sensor rate, which is common in LiDAR-
+                based autonomous driving.
+                In practice, it is not really necessary to predict waypoint coordinates for every single future time step, which
+                can also be wasteful computationally. Instead, it is common to predict future waypoints at a lower frequency
+                than the input frames, i.e., with a stride.
+                For the scope of this assignment, we will set W = 10. We predict 5 seconds into the future, at a stride of 5
+                frames. This means that we will predict the pose at T = 10 future positions: t + 0.5s,t + 1.0s,...t + 5.0s.</p>
             <ul>
-                <li><p>Autonomous</p>
-                <p>The design builds an antomated pipeline taking raw data files and finally visualizing anomaly detection analysis. UI automation also makes the pipeline more user-friendly.</p>
-                </li>
-                <li><p>Reliable</p>
-                <p>The design will generate real-time predictions that are reasonably close to the actual operational state of the physical system.The design will achieve 90% training accuracy at the minimum (MAPE is over 90% after samples contianing actual value 0 are removed)</p>
-                </li>
-                <li><p>Computationally efficient</p>
-                <p>The pipeline applies high-quanlity GRU codes, allowing gpu to accelerate computing (more than 60 times) if users have access to GRUs. It is also compatible with CPU running.</p>
-                </li>
-                <li><p>Generalizable </p>
-                <p>Given the sensor data and specific building characteristics, the design has the capacity to model different VAVs in the building.</p>
-                </li>
-                <li><p>Modularity</p>
-                <p>The design decoupled prediction, anomaly detection and UI, which makes following software maintenance and upgrading more convienent. The pipeline could be run in the sandbox (conda), which avoids that software setup conflicts users' previous local environement. </p>
-                </li>
-              </ul>
-              <h3> Next step</h3>
-              The goals for improving the machine learning model are: 
-              <ul>
-                <li>Generalize the model and make the model be able to do multivariate forecasting
-                <li>Increase prediction accuracy (applying Neural ODE to hidden states)
-              </ul>>
+                
             <br/>
             <br/>
             <!--h3> Discussions</h3>
@@ -186,14 +184,14 @@
             <br/-->
           </div>
 
-          <div class="col-lg-4">
+          <!--div class="col-lg-4">
             <div class="portfolio-info">
               <h3>5. Project information</h3>
               <ul>
                 <li><strong>Category</strong>: Machine Learning design</li>
                 <li><strong>Client</strong>: <a href="https://modernniagara.com/">Modern Niagara Group</a></li>
                 <li><strong>Project date</strong>: 2021.9 ~ 2022.4 </li>
-                <!--li><strong>Project URL</strong>: <a href="https://github.com/chuiyunjun/aps490">https://github.com/chuiyunjun/aps490</a></li-->
+                <li><strong>Project URL</strong>: <a href="https://github.com/chuiyunjun/aps490">https://github.com/chuiyunjun/aps490</a></li>
               </ul>
             </div>
             <div class="portfolio-description">
@@ -206,7 +204,7 @@
                   <li><p>Sherry Zuo</p></li>
                 </ul>
             </div>
-          </div>
+          </div-->
 
         </div>
 
