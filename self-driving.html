@@ -115,7 +115,7 @@
             <!--h2 style="color:red">In Progress; Keep Updating</h2-->
             <h1> Making Your Self-driving Car Perceive the World </h1>
             <br/>
-            <h2>| <a href="https://github.com/chuiyunjun/aps490">Code</a> | </h2>
+            <h2>| <a href="">Code</a> | </h2>
 
             <br/>
             <br/>
@@ -135,10 +135,10 @@
                 object’s centroid. Then, for each object, we additionally regress other attributes such as bounding box sizes
                 and heading angles. The implementation of this detector can be decomposed into five parts</p>
             
-            <p> </p>
+                <br/>
             <img src="assets\img\onestage.png" alt="">
             <img src="assets\img\ob_steps.png" alt="">
-            
+            <br/>
             <h3>3. Tracking </h3>
             <p> This module implements a simple tracker that associates
                 bounding boxes across a sequence of LiDAR sweeps. Specifically, given a sequence of detected bounding
@@ -150,6 +150,9 @@
                 the new detections by matching against previous observations. To simplify the process, instead of matching
                 against all previous bounding boxes, we only associate the bounding boxes in the current frame with the
                 bounding boxes in the previous frame at time step t −1.</p>
+                <br/>
+            <img src="assets\img\tr_steps.png" alt="">
+            <br/>
             
             <h3> 4. Motion Forecasting</h3>
             <br/>
