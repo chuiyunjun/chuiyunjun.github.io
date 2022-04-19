@@ -113,10 +113,10 @@
             </div>
 
             <!--h2 style="color:red">In Progress; Keep Updating</h2-->
-            <h1> ML-based analysis platform for building maintenance services in HVAC systems </h2>
+            <h1> Making Your Self-driving Car Perceive the World </h1>
             <br/>
-            <h2>| <a href="https://github.com/chuiyunjun/aps490">Code</a> | <a href="assets/files/aps490report.pdf"> Report</a> | <a href="assets/files/aps490poster.pdf">Poster</a> | <a href="assets/files/aps490slides.pdf">Slides</a> | </h1>
-            <h3>| <a href="https://youtu.be/y4Ak1dqRhBI">UI Demo (Training)</a> | <a href="https://youtu.be/UvohrSt-ooE">UI Demo (Analysis)</a> | </h3>  
+            <h2>| <a href="https://github.com/chuiyunjun/aps490">Code</a> | </h2>
+
             <br/>
             <br/>
             <h3>1. Intorduction</h3>
@@ -128,168 +128,30 @@
                 which assists in scheduling maintenance service in advance. My contribution is mainly about selecting building system parameters for anomoly detection, selecting features for predicting those and implementing prediction part</p>
             <p> </p>
             <br/>
-            <h3>2. Methods</h3>
+            <h3>2. Object Detection</h3>
             <br/>
-            <p> We aim to predict several key sensor parameters of HVAC systems based on historical data of CPPIB building shared by Modern Niagara Group, in order to find the possibility of impending anomalies.</p>
+            <p> This module implement a one-stage object detector. The high-level idea is to use a
+                neural network to predict a heatmap of where objects are located; each peak of the heatmap indicates an
+                object’s centroid. Then, for each object, we additionally regress other attributes such as bounding box sizes
+                and heading angles. The implementation of this detector can be decomposed into five parts</p>
+            
             <p> </p>
-            <ul>
-              <li><h4>2.1 System parameters predictions</h4>
-                <ul>
-                  <li><h5>2.1.1 Features selection</h5>
-                  <p>To create a digital representation of the Air-Handler Unit(AHU) and Variable Air Volume(VAV) boxes, the values of variables that represent the state of the system must be predicted.
-                     We considered all variables in the dataset provided by MNG to decide which to predict in order to create the digital twin representation of the system. 
-                    The variables that were identified as setpoints, such as Discharge Air.Temperature Cooling Setpoint and Zone Air.Temperature Cooling Setpoint,
-                     were automatically disregarded as the value of these variables at a given time is known and thus there is nothing to predict. Other variables,
-                      such as Supply Fan.Speed and Primary Air Damper.Damper Position, were disregarded as the timestep of the dataset (5 minutes) is too large to generate 
-                      accurate predictions for these variables. This is because these variables change continuously in response to other variables.
-                       For example, Supply Fan.Speed changes continuously to maintain the static pressure in the CU. Some variables, such as Discharge Air.Static Pressure,
-                        had little variation historically and matched the setpoint. As a result, there would be little value in predicting these variables. 
-                    The team arrived at two variables that held merit for prediction, Primary Air. Air Flow and Fin Tube Radiation.Valve Position.
-                     The prediction of these variables can be separated into different tasks. The following section details the methodology of feature selection.
-                      Each task and its inputs and outputs are then explained.
-                    The inputs and outputs considered are those that exist in the datasets provided by MNG. 
-                    Thus, if there is an input that affects an output specified by one of the tasks below, but this input is not tracked by MNG,
-                     it is not discussed. The designed solution accounts for these missing variables.</p>
-                     <br/>
-                    <p> When determining which input variables to use for each task, the team utilized causal relationship by domain knowledge and correlated relationship by Spearman Correlation Coefficient.
-                       The Spearman Correlation Coefficient measures the strength and direction of association between two variables. 
-                       It is a number ranging from -1 to 1. A Spearman Correlation Coefficient close to 1 indicates a very strong positive relationship between two variables,
-                        while a Coefficient close to 0 indicates no or a negligible relationship.
-                         A heat map of the Spearman Correlation Coefficient for the variables in the dataset is shown in the figure .
-                          For both Primary Air. Air Flow and Fin Tube Radiation.Valve Position, the team used the Spearman Correlation Coefficient
-                           to determine the relationship between the variable in question and all other variables in the MNG dataset. 
-                           For variables that had high Spearman Correlation Coefficients, the team used domain knowledge to determine if there was 
-                           a causation relationship between the variables or if it was only a correlation relationship. 
-                           Domain knowledge was also used to identify any other variables in the dataset that would be useful as inputs. 
-                    </p> 
-                    <img src="assets\img\corr.png" alt="">
-                  </li>
-                  <li><h5>2.1.2 ML desgin and models selection</h5>
-                  <p>We selected a statistical method called vector-autoregression(VAR) as our baseline model and two RNN models (LSTM and GRU) as our main prediction models.</p>
-                  <br/>
-                  <h6>a. VAR </h6>
-                  <p>After the team confirmed the desired inputs and outputs, the next step is to establish a suitable baseline model.
-                     After extensive literary review, the team selected a statistical method called vector-autoregression, or VAR. 
-                     Simply put, VAR captures the long-term relationship of multiple time-based quantities such as the sensor data we received from MNG.
-                     This regression model also allows for a multivariate output, which is useful if future iterations of the design include more than one output variable.</p> 
-                  <br/>
-                  <p class="bold"> 1. Testing for stationary series</p>
-                  <p>VAR is to be used on stationary series, where none of the variables have an upwards to downwards trend over time. In both the Air Flow and the Valve models, all variables were shown to be stationary through use of the Augmented Dickey Fuller test (ADF)</p>
-                  <br/>
-                  <p class="bold"> 2. Cointegration Analysis</p>
-                  <p>Similar to correlation in linear regression, cointegration is used to assess whether the selected variables move together over time, and have long-term relationships. Significant cointegration behavior is confirmed in both the Air Flow and Valve models, meaning each identified variable is affected by the other variables and VAR is suitable. Notice below how the setpoints are not cointegrated with the other variables even though there is correlation, because setpoints do not move synchronously with the other features.
-                  </p>
-                  <br/>
-                  <p class="bold"> 3. Determining the lag parameter</p>
-                  <p>Although the regression coefficients are fitted on the entire training dataset, the VAR model requires users to specify the order of the VAR, or how many past time steps each current value is affected by (lag, or look-back). Unlike in the neural-network based model, it is costly and impractical to lag as much as 48 steps in a simple regression model. Thus, we look at when the Akaike Information Criterion (AIC), which estimates prediction error and therefore model quality, begins to plateau. In both cases, we see that this happens around VAR of order 5, meaning that each prediction includes information from the last 5 time steps.                   </p>
-                  <br/>
-                  <h6>b. LSTM</h6>
-                  <p>One type of RNN is Long Short-Term Memory (LSTM). LSTM models are capable of learning the long-term dependencies between variables. They are suitable for time-series data that may have lags of unknown duration between significant events. This makes the LSTM model a good candidate for HVAC sensor data which spans over months.
-                  </p>
-                  <img src="assets\img\lstm.png" alt="">
-                  <br/>
-                  <h6>c. GRU</h6>
-                  <p> Another type of RNN the team examined was the Gated-Recurrent Unit (GRU). GRU is a type of RNN that is very similar to LSTM. The GRU model has a slight difference in model architecture (it has fewer gates and therefore fewer parameters). 
-                  </p>
-                  <img src="assets\img\gru.png" alt="">
-                  <br/>
-
-                </ul>
-              <p></p> 
-              
-              </li>
-              <li><h4>2.2 Anomaly detection</h4>
-              <p>The second stage of the model pipeline is to use the prediction models to generate forecasts for the next time horizon,
-                 and then monitor this prediction for any anomalies. The anomaly detection task is unsupervised, since we do not know whether the given CPPIB data is normal,
-                  or contains malfunctions. Thus, the team explored two state-of-the-art outlier detection methods, 
-                  which are detailed in the following sections. Both methods selected are global outlier detection methods, 
-                  meaning that the entire history is considered when we are deciding whether a point is anomalous. 
-                  We decided against locally-based methods because looking at neighboring points to classify anomalies is susceptible to data drift, 
-                  which would prevent us from detecting progressive degradation of the mechanical system. In addition to the output variable, 
-                  we accounted for temporal variables such as hour and day of the week, as well as the weather. 
-                  Since outlier detection methods depend on distances and densities, 
-                  a preprocessing step was taken to normalize the inputs to account for differences in scale and to minimize skew. 
-                  Both algorithms are implemented using the PyOD python package. 
-                  <ul>
-                    <li><h5 class="bold">a. Statistical Approach - Histogram-based Outlier Score (HBOS) </h5>
-                    <p>To begin, we fit a Histogram-based Outlier Score (HBOS) model to the dataset and classify each data point as anomalous (score = 1) or not.
-                       For each input dimension, the HBOS algorithm constructs a histogram, representing the density in each bin, or range, of values.
-                        The HBOS of each point is the sum of the log(density value) for all output features. The mathematical definition of the HBOS is shown in equation.
-                    </p>
-                    <img src="assets\img\hbos.png" alt="">
-                    <p>The HBOS assumes that each input dimension is independent and assumes a gaussian distribution of frequencies.
-                       Statistical density-based values are simple to calculate, and HBOS is very effective if the aforementioned assumptions hold true.
-                        However, due to these distributional assumptions, the algorithm is not robust in real-life conditions, which can often have extreme or
-                         non-gaussian behaviour and dependencies between variables. </p>
-                    <br/>
-                    <li><h5 class="bold">b. Tree-based Approach - Isolation Forest (iForest)</h5>
-                    <p>Instead of building a profile of normal instances like in HBOS, the iForest method seeks to isolate anomalous points through sub-sampling [21]. This approach assumes two characteristics of anomalous points:
-                      (i) There are few of them
-                      (ii) They have attribute values that are very different from other points
-                      Since anomalies are “few and different,” they are easy to isolate - when we split on attributes, they will be close to the root of the tree whereas normal points will be deeper in the tree. An iForest is an ensemble of iTrees that extract instances with short average path length (this path length is the anomaly score). Each tree has a small sub-sample size, which prevents “swamping,” which is when a normal instance is misclassified as anomalous because it is surrounded by anomalous points, or “masking” which is the inverse[22]. It also does not depend on density or distance calculations, which makes it faster and less sensitive to the way normalization or scaling is performed. Other ML-based methods such as KNN, SVMs, etc are impractical for the large number of data points we have and the frequency of new data, but iForests run in linear time. Despite being very efficient and more sophisticated than HBOS, this tree-based method is less explainable and hard to visualize. Additionally it suffers from a bias as a result of the parallel cuts that are made during branching:
-                      </p>
-                    <img src="assets\img\isolation.png" alt="">
-                    <p>As we can see in the figure, each split divides the plane in half, so the corners are more likely to be classified as anomalous than the four lighter areas at the middle of each axis. 
-                    </p>
-                    <br/>
-                  </ul>
-              </p>
-              <!--img src="assets\img\d2.png" alt=""-->
-
-            </ul>
-            <h3>3. Experiments </h3>
-            <ul>
-              <li><h4>3.1 Data Preparation</h4>
-                <p>After data preparation and model selection, the team designed a machine learning workflow to train the models. Out of the 70,000 collected data samples, 60,000 are used for training, 10,000 are used for testing.</p>
-              <li><h4>3.2 Hyperparameter setup</h4>
-                Both the LSTM and the GRU model have 1 hidden layer with 7 features in the hidden state.
-                 was trained over 1200 epochs with a learning rate of 0.008. There are 55000 samples in the training dataset, 5000 samples in the validation dataset,
-                  and 10000 samples in the test dataset. The sequence length for the training samples is 48 datapoints (4 hours), 
-                  and the sequence length for the predicted samples is 24 data points (2 hours).
-                   The hyperparameter δ for Huber loss is set as 0.03 to maximize performance
-              <li><h4>3.3 Prediction Results</h4>
-                MAE (Mean Abosolute Error) is applied to evaluate the performance of the model. In the table, it is obvious that RNN performs better than VAR.
-                <img src="assets\img\prediction_results.png" alt="">
-                <br/>
-              <li><h4>3.4 Prediction Sample Visualization</h4>
-                <p>We also visualize some samples for comparison.</p>
-                <img src="assets\img\pre_viz1.png" alt=""><img src="assets\img\pre_viz2.png" alt="">
-                <br/>
-              <li><h4>3.5 Anomaly Detection Results & Discussions</h4>
-                <h5>3.5.1 Setting the Contamination Fraction</h4>
-                  <p>A primary drawback of not having labelled anomaly data is that we have to make certain assumptions about the fraction of outliers that are present in the original dataset. This is called the fraction of contamination, which is a necessary parameter for each unsupervised learning method. As shown below, the number of identified anomaly points depends largely on this number, which we can only set as an arbitrary value if we do not have prior knowledge. 
-                    Results for varying contamination fraction settings are for HBOS as follows: 
-                    </p>
-                    <img src="assets\img\cont0.1.png" alt="">
-                    <br/>
-                    <img src="assets\img\cont0.5.png" alt="">
-                    <br/>
-                <h5>3.5.2 Comparison of Methods and Results Discussion</h5>
-                <img src="assets\img\comp1.png" alt=""><img src="assets\img\comp2.png" alt="">
-                <br/>
-                  <p>For the valve position, we see that anomalous points are detected at different parts in the dataset. In the isolation forest, we see that the anomalies (in red) occur at the onset of values that are very different from what we have previously seen. For example, the first time that the valve position dips down is marked in red, as well as the first time it dips to extremely low values that are close to zero. In the HBOS, it seems like there is a cutoff below values of around 50, and those are classified as anomalous. In this case, iForest is better suited to identifying when irregular behaviour begins to happen, since HBOS just tells us whenever the valve position has a low value. However, low values aren’t synonymous with anomalies - it could just be a systematic error such as when the system starts up or shuts down or changes modes. 
-                  </p>
-                  <img src="assets\img\comp3.png" alt=""><img src="assets\img\comp4.png" alt="">
-                <br/>
-                  <p>In the airflow model, we again see that the iForest and HBOS categorize anomalies at different points. As highlighted on the figure above, there are four key differences to discuss:
-                  </p>
-                  <ul>
-                    <li> 1. In the first circle, the isolation forest did not pick up on the first spike in the time series while the HBOS did
-                    <li> 2. The isolation forest classified the last spike in the time series as anomalous, but it is not greatly different from surrounding values
-                    <li> 3. HBOS does not classify the highest value in the timeseries as anomalous, but instead only labels the values around it as anomalous 
-                    <li> 4. HBOS labels ‘0’ points as anomalous while iForest doesn’t 
-
-                  </ul>
-                  <p>For (1) and (2), we know that iForest measures outliers by average path length and the sub-sampling is done using random selection. Thus, depending on the subsamples chosen, what is defined as being “different enough” from the other points to be classified as an anomaly could change. We also know that when there are a lot of anomalous points in a sub-sample, they could aggregate in a cluster and be hard to detect.
-                  </p>
-                  <p>For (3), we know that the HBOS is very sensitive to the selection of number of bins and the width, as well as how the normalization is done (in this case we use min-max normalization), all of which could affect which values are flagged as anomalous. Thus, hyperparameter tuning and exploring alternative normalization methods could help pinpoint what parameters affect which points. 
-                  </p>
-                  <p>For (4), HBOS is flags the points that are irregular with respect to the empirical distribution, so the ‘0’ points may fall outside of the normal range, whereas in iForest, each anomalous point has to be sufficient infrequent and different. The ‘0’ values are not uncommon, due to it being caused by system shut-offs, so would not be classified as anomalous by iForest. It is also important to note that since HBOS is a density-based method, it assumes that the underlying distribution is gaussian. This could also lead to skewing of the As we can deduce from the airflow model, further hyperparameter tuning is necessary to make a definitive statement about the performance of both outlier detection algorithms. However, hyperparameter tuning would require prior knowledge about which points should be outliers, which is currently unavailable to us. 
-
-                  </p>
-            </ul>
-
-            <h3> 4. Evaluation</h3>
+            <img src="assets\img\onestage.png" alt="">
+            <img src="assets\img\ob_steps.png" alt="">
+            
+            <h3>3. Tracking </h3>
+            <p> This module implements a simple tracker that associates
+                bounding boxes across a sequence of LiDAR sweeps. Specifically, given a sequence of detected bounding
+                boxes for each LiDAR frame, the goal is to partition the bounding boxes into a set of tracklets, where each
+                tracklet is associated with a unique object that moves across frames.
+                The tracker  conducts tracking in an online manner. That is, we start with the first frame
+                at time step 0, we then assign a unique object ID to every detected bounding box in the first frame, and
+                initialize the respective tracklet to contain the associated bounding box. Then, at each time step t, we track
+                the new detections by matching against previous observations. To simplify the process, instead of matching
+                against all previous bounding boxes, we only associate the bounding boxes in the current frame with the
+                bounding boxes in the previous frame at time step t −1.</p>
+            
+            <h3> 4. Motion Forecasting</h3>
             <br/>
             <p>The final solution is to be completed but it should following the next requirements. After we complete the PoC, i can join evaluating it by requirements based on my computer science knowledge</p>
             <ul>
