@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Chi Zhang | CS @ UofT</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/letter-c.png" rel="icon">
+  <!--link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon"-->
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: iPortfolio - v3.7.0
+  * Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+
+<body>
+
+  <!-- ======= Mobile nav toggle button ======= -->
+  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+
+  <!-- ======= Header ======= -->
+  <!--header id="header">
+    <div class="d-flex flex-column">
+
+      <div class="profile">
+        <img src="assets\img\chi.jpg" alt="" class="img-fluid rounded-circle">
+        <h1 class="text-light"><a href="index.html">Chi Zhang</a></h1>
+        <div class="social-links mt-3 text-center">
+          <a href="mailto:chizhang0826@gmail.com" class="email"><i class="bx bx-mail-send"></i></a>
+          <a href="https://www.facebook.com/profile.php?id=100013401366754" class="facebook"><i class="bx bxl-facebook"></i></a>
+          <a href="https://www.github.com/chuiyunjun" class="github"><i class="bx bxl-github"></i></a>
+          <a href="https://www.linkedin.com/in/chi-zhang-220a3517a/" class="linkedin"><i class="bx bxl-linkedin-square"></i></a>
+        </div>
+      </div>
+
+      <nav id="navbar" class="nav-menu navbar">
+        <ul>
+          <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
+          <li><a href="/#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
+          <li><a href="/#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
+          <li><a href="/#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
+          <li><a href="/#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>
+          <li><a href="/#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+        </ul>
+      </nav>< .nav-menu >
+    </div>
+  </header--><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Portfolio Details</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li>Portfolio Details</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-8">
+            <!--div class="portfolio-details-slider swiper">
+              <div class="swiper-wrapper align-items-center">
+
+
+                <div class="swiper-slide">
+                  <img src="assets/img/pipeline.png" alt="">
+                </div>
+                <div class="swiper-slide">
+                  <img src="assets/img/ad-demo.png" alt="">
+                </div>
+
+                <div class="swiper-slide">
+                  <img src="assets/img/architecture.png" alt="">
+                </div>
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div-->
+
+            <!--h2 style="color:red">In Progress; Keep Updating</h2-->
+            <h1> Making Your Self-driving Car Perceive the World </h1>
+            <br/>
+            <h2>| <a href="mailto:chizhang0826@gmail.com">Code</a> | </h2>
+
+            <br/>
+            <br/>
+            <h3>1. Intorduction</h3>
+            <br/>
+
+            <p> The project takes advantages of the dataset, <a href="https://scale.com/resources/download/pandaset">PandaSet</a>, builds 3 modules respectively for object detection, tracking, motion forecasting of self-driving</p>
+
+            <br/>
+            <h3>2. Object Detection</h3>
+            <br/>
+            <p> This module implement a one-stage object detector. The high-level idea is to use a
+                neural network to predict a heatmap of where objects are located; each peak of the heatmap indicates an
+                object’s centroid. Then, for each object, we additionally regress other attributes such as bounding box sizes
+                and heading angles. The implementation of this detector can be decomposed into five parts</p>
+            
+                <br/>
+            <img src="assets\img\onestage.png" width="800" alt="">
+            <img src="assets\img\ob_steps.png" width="800" height="500" alt="">
+            <br/>
+            <h3>3. Tracking </h3>
+            <p> This module implements a simple tracker that associates
+                bounding boxes across a sequence of LiDAR sweeps. Specifically, given a sequence of detected bounding
+                boxes for each LiDAR frame, the goal is to partition the bounding boxes into a set of tracklets, where each
+                tracklet is associated with a unique object that moves across frames.
+                The tracker  conducts tracking in an online manner. That is, we start with the first frame
+                at time step 0, we then assign a unique object ID to every detected bounding box in the first frame, and
+                initialize the respective tracklet to contain the associated bounding box. Then, at each time step t, we track
+                the new detections by matching against previous observations. To simplify the process, instead of matching
+                against all previous bounding boxes, we only associate the bounding boxes in the current frame with the
+                bounding boxes in the previous frame at time step t −1.</p>
+                <br/>
+            <img src="assets\img\tr_steps.png"  width="800" height="400" alt="">
+            <br/>
+            
+            <h3> 4. Motion Forecasting</h3>
+            <br/>
+            <p>we provide the detections and trajectories produced by a known-good
+                detector for the objects in the Pandaset. </p>
+             <p> For each sample, an object’s current and past detections will be
+                used as inputs for the motion prediction. At each time step (t) there are N actor detections. The number of actors in a scene varies across time, as
+                old actors disappear from view and new ones appear. For each detection, its current and past states need to
+                be assembled as input to the MLP, according to the size of the time window being considered. We denote
+                the window size as W. (W = 10 would consider the past 9 frames + the current one, thus 10, etc.) For each
+                time step, we need to encode the object state at that time.
+                The baseline motion forecaster will predict the actor’s future trajectory based on its past trajectory only (no
+                LiDAR, no HD map, etc.). The inputs will be an object’s current state together with its state history, and
+                the outputs will represent the predicted state at future time steps t1,t2,...,tT , for a total of T steps, where
+                T is a hyperparameter.
+                Prediction tasks are typically concerned with time horizons of 5–10 seconds, which would normally mean
+                making predictions for 50–100 future time steps, assuming a 10Hz sensor rate, which is common in LiDAR-
+                based autonomous driving.
+                In practice, it is not really necessary to predict waypoint coordinates for every single future time step, which
+                can also be wasteful computationally. Instead, it is common to predict future waypoints at a lower frequency
+                than the input frames, i.e., with a stride.
+                For the scope of this assignment, we will set W = 10. We predict 5 seconds into the future, at a stride of 5
+                frames. This means that we will predict the pose at T = 10 future positions: t + 0.5s,t + 1.0s,...t + 5.0s.</p>
+            <ul>
+                
+            <br/>
+            <img src="assets\img\sd-forecast.jpg"  alt="">
+            <br/>
+
+          </div>
+
+          <!--div class="col-lg-4">
+            <div class="portfolio-info">
+              <h3>5. Project information</h3>
+              <ul>
+                <li><strong>Category</strong>: Machine Learning design</li>
+                <li><strong>Client</strong>: <a href="https://modernniagara.com/">Modern Niagara Group</a></li>
+                <li><strong>Project date</strong>: 2021.9 ~ 2022.4 </li>
+                <li><strong>Project URL</strong>: <a href="https://github.com/chuiyunjun/aps490">https://github.com/chuiyunjun/aps490</a></li>
+              </ul>
+            </div>
+            <div class="portfolio-description">
+              <h2>Team Member</h2>
+                <ul>
+                  <li><p>Elizabeth Chelmecki</p></li>
+                  <li><p>Anoja Muthucumaru</p></li>
+                  <li><p>Chi Zhang</p></li>
+                  <li><p>Shirley Zhang</p></li>
+                  <li><p>Sherry Zuo</p></li>
+                </ul>
+            </div>
+          </div-->
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Details Section -->
+
+  </main><!-- End #main -->
+
+
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/purecounter/purecounter.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/typed.js/typed.min.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
