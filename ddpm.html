@@ -121,61 +121,25 @@
             <br/>
             <h3>1. Intorduction</h3>
             <br/>
-
-            <p> The project takes advantages of the dataset, <a href="https://scale.com/resources/download/pandaset">PandaSet</a>, builds 3 modules respectively for object detection, tracking, motion forecasting of self-driving</p>
-
-            <br/>
-            <h3>2. Object Detection</h3>
-            <br/>
-            <p> This module implement a one-stage object detector. The high-level idea is to use a
-                neural network to predict a heatmap of where objects are located; each peak of the heatmap indicates an
-                object’s centroid. Then, for each object, we additionally regress other attributes such as bounding box sizes
-                and heading angles. The implementation of this detector can be decomposed into five parts</p>
+            <p>First, to recap how score-based models work.
+                 On the forward evolution of the SDE, we solve an SDE from t=0 to t=T (using diffrax solvers).
+                  At t=0 we have our perfect uncorrupted training example, from our dataset. 
+                  At t=T we have added so much noise that we have something that looks like a random Gaussian vector.
+                   And now for all possible t in this interval, we train our score-based model to try and determine how to slightly denoise a sample.
+                Then, sampling a random Gaussian vector and repeatedly denoising (i.e. solving the reverse ODE/SDE) is our inference-time procedure for producing a sample image</p>
             
-                <br/>
-            <img src="assets\img\onestage.png" width="800" alt="">
-            <img src="assets\img\ob_steps.png" width="800" height="500" alt="">
             <br/>
-            <h3>3. Tracking </h3>
-            <p> This module implements a simple tracker that associates
-                bounding boxes across a sequence of LiDAR sweeps. Specifically, given a sequence of detected bounding
-                boxes for each LiDAR frame, the goal is to partition the bounding boxes into a set of tracklets, where each
-                tracklet is associated with a unique object that moves across frames.
-                The tracker  conducts tracking in an online manner. That is, we start with the first frame
-                at time step 0, we then assign a unique object ID to every detected bounding box in the first frame, and
-                initialize the respective tracklet to contain the associated bounding box. Then, at each time step t, we track
-                the new detections by matching against previous observations. To simplify the process, instead of matching
-                against all previous bounding boxes, we only associate the bounding boxes in the current frame with the
-                bounding boxes in the previous frame at time step t −1.</p>
-                <br/>
-            <img src="assets\img\tr_steps.png"  width="800" height="400" alt="">
+                <img src="assets\img\scorefunction.png"  alt="">
             <br/>
-            
-            <h3> 4. Motion Forecasting</h3>
-            <br/>
-            <p>we provide the detections and trajectories produced by a known-good
-                detector for the objects in the Pandaset. </p>
-             <p> For each sample, an object’s current and past detections will be
-                used as inputs for the motion prediction. At each time step (t) there are N actor detections. The number of actors in a scene varies across time, as
-                old actors disappear from view and new ones appear. For each detection, its current and past states need to
-                be assembled as input to the MLP, according to the size of the time window being considered. We denote
-                the window size as W. (W = 10 would consider the past 9 frames + the current one, thus 10, etc.) For each
-                time step, we need to encode the object state at that time.
-                The baseline motion forecaster will predict the actor’s future trajectory based on its past trajectory only (no
-                LiDAR, no HD map, etc.). The inputs will be an object’s current state together with its state history, and
-                the outputs will represent the predicted state at future time steps t1,t2,...,tT , for a total of T steps, where
-                T is a hyperparameter.
-                Prediction tasks are typically concerned with time horizons of 5–10 seconds, which would normally mean
-                making predictions for 50–100 future time steps, assuming a 10Hz sensor rate, which is common in LiDAR-
-                based autonomous driving.
-                In practice, it is not really necessary to predict waypoint coordinates for every single future time step, which
-                can also be wasteful computationally. Instead, it is common to predict future waypoints at a lower frequency
-                than the input frames, i.e., with a stride.
-                For the scope of this assignment, we will set W = 10. We predict 5 seconds into the future, at a stride of 5
-                frames. This means that we will predict the pose at T = 10 future positions: t + 0.5s,t + 1.0s,...t + 5.0s.</p>
-            <ul>
+            <p>That inference-time procedure for producing sample is called 'denoising'
+                now what I notice is that objective, called the score-matching function
+                is VERY sensitive in what is picked for λ</p>
 
-            <h3> 5. Motion Forecasting</h3>
+            </p>what is currently happening is that given an SDE that diffuses data at t=0 to a normal at t=1: constant λ will essentially fail to train, while a λ that upweights the t=1 end of things will.
+                This is really surprising to me. I would have thought that the upweighting the t=0 (i.e. clean data) end of things would be more important, as during inference that where we put the "finishing touches" on denoising our sample.
+                so the main goal of this project is to address: why do we get poorer-quality samples when we've explicitly changed our loss function so that the network should do a better job? (e.g. upweighting near t=0)</p>
+            
+            <h3> 2. Detailed report</h3>
             <br/>
             <iframe src="assets\files\CSC420.pdf" width=900 height=900>
             </iframe>
