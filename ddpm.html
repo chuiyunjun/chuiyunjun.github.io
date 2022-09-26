@@ -121,8 +121,8 @@
             <br/>
             <h3>1. Intorduction</h3>
             <br/>
-            <p>First, to recap how score-based models work.
-                 On the forward evolution of the SDE, we solve an SDE from t=0 to t=T (using diffrax solvers).
+            <p>First, to recap how <a href="https://yang-song.net/blog/2021/score/">score-based diffusion models</a> work.
+                 On the forward evolution of the SDE(stochastic differential equation), we solve an SDE from t=0 to t=T (using diffrax solvers).
                   At t=0 we have our perfect uncorrupted training example, from our dataset. 
                   At t=T we have added so much noise that we have something that looks like a random Gaussian vector.
                    And now for all possible t in this interval, we train our score-based model to try and determine how to slightly denoise a sample.
