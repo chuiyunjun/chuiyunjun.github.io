@@ -168,7 +168,7 @@
                            a causation relationship between the variables or if it was only a correlation relationship. 
                            Domain knowledge was also used to identify any other variables in the dataset that would be useful as inputs. 
                     </p> 
-                    <img src="assets\img\corr.png" alt="">
+                    <p><img src="assets\img\corr.png" width="600" alt=""></p>
                   </li>
                   <li><h5>2.1.2 ML desgin and models selection</h5>
                   <p>We selected a statistical method called vector-autoregression(VAR) as our baseline model and two RNN models (LSTM and GRU) as our main prediction models.</p>
@@ -192,12 +192,12 @@
                   <h6>b. LSTM</h6>
                   <p>One type of RNN is Long Short-Term Memory (LSTM). LSTM models are capable of learning the long-term dependencies between variables. They are suitable for time-series data that may have lags of unknown duration between significant events. This makes the LSTM model a good candidate for HVAC sensor data which spans over months.
                   </p>
-                  <img src="assets\img\lstm.png" alt="">
+                  <p><img src="assets\img\lstm.png" alt=""></p>
                   <br/>
                   <h6>c. GRU</h6>
                   <p> Another type of RNN the team examined was the Gated-Recurrent Unit (GRU). GRU is a type of RNN that is very similar to LSTM. The GRU model has a slight difference in model architecture (it has fewer gates and therefore fewer parameters). 
                   </p>
-                  <img src="assets\img\gru.png" alt="">
+                  <p><img src="assets\img\gru.png" alt=""></p>
                   <br/>
 
                 </ul>
@@ -222,7 +222,7 @@
                        For each input dimension, the HBOS algorithm constructs a histogram, representing the density in each bin, or range, of values.
                         The HBOS of each point is the sum of the log(density value) for all output features. The mathematical definition of the HBOS is shown in equation.
                     </p>
-                    <img src="assets\img\hbos.png" alt="">
+                    <p><img src="assets\img\hbos.png" alt=""></p>
                     <p>The HBOS assumes that each input dimension is independent and assumes a gaussian distribution of frequencies.
                        Statistical density-based values are simple to calculate, and HBOS is very effective if the aforementioned assumptions hold true.
                         However, due to these distributional assumptions, the algorithm is not robust in real-life conditions, which can often have extreme or
@@ -234,7 +234,7 @@
                       (ii) They have attribute values that are very different from other points
                       Since anomalies are “few and different,” they are easy to isolate - when we split on attributes, they will be close to the root of the tree whereas normal points will be deeper in the tree. An iForest is an ensemble of iTrees that extract instances with short average path length (this path length is the anomaly score). Each tree has a small sub-sample size, which prevents “swamping,” which is when a normal instance is misclassified as anomalous because it is surrounded by anomalous points, or “masking” which is the inverse[22]. It also does not depend on density or distance calculations, which makes it faster and less sensitive to the way normalization or scaling is performed. Other ML-based methods such as KNN, SVMs, etc are impractical for the large number of data points we have and the frequency of new data, but iForests run in linear time. Despite being very efficient and more sophisticated than HBOS, this tree-based method is less explainable and hard to visualize. Additionally it suffers from a bias as a result of the parallel cuts that are made during branching:
                       </p>
-                    <img src="assets\img\isolation.png" alt="">
+                    <p><img src="assets\img\isolation.png" alt=""></p>
                     <p>As we can see in the figure, each split divides the plane in half, so the corners are more likely to be classified as anomalous than the four lighter areas at the middle of each axis. 
                     </p>
                     <br/>
@@ -255,27 +255,27 @@
                    The hyperparameter δ for Huber loss is set as 0.03 to maximize performance
               <li><h4>3.3 Prediction Results</h4>
                 MAE (Mean Abosolute Error) is applied to evaluate the performance of the model. In the table, it is obvious that RNN performs better than VAR.
-                <img src="assets\img\prediction_results.png" alt="">
+                <p><img src="assets\img\prediction_results.png" alt=""></p>
                 <br/>
               <li><h4>3.4 Prediction Sample Visualization</h4>
                 <p>We also visualize some samples for comparison.</p>
-                <img src="assets\img\pre_viz1.png" alt=""><img src="assets\img\pre_viz2.png" alt="">
+                <p><img src="assets\img\pre_viz1.png" alt=""><img src="assets\img\pre_viz2.png" alt=""></p>
                 <br/>
               <li><h4>3.5 Anomaly Detection Results & Discussions</h4>
                 <h5>3.5.1 Setting the Contamination Fraction</h4>
                   <p>A primary drawback of not having labelled anomaly data is that we have to make certain assumptions about the fraction of outliers that are present in the original dataset. This is called the fraction of contamination, which is a necessary parameter for each unsupervised learning method. As shown below, the number of identified anomaly points depends largely on this number, which we can only set as an arbitrary value if we do not have prior knowledge. 
                     Results for varying contamination fraction settings are for HBOS as follows: 
                     </p>
-                    <img src="assets\img\cont0.1.png" alt="">
+                    <p><img src="assets\img\cont0.1.png" alt=""></p>
                     <br/>
-                    <img src="assets\img\cont0.5.png" alt="">
+                    <p><img src="assets\img\cont0.5.png" alt=""></p>
                     <br/>
                 <h5>3.5.2 Comparison of Methods and Results Discussion</h5>
-                <img src="assets\img\comp1.png" alt=""><img src="assets\img\comp2.png" alt="">
+                <p><img src="assets\img\comp1.png" alt=""><img src="assets\img\comp2.png" alt=""></p>
                 <br/>
                   <p>For the valve position, we see that anomalous points are detected at different parts in the dataset. In the isolation forest, we see that the anomalies (in red) occur at the onset of values that are very different from what we have previously seen. For example, the first time that the valve position dips down is marked in red, as well as the first time it dips to extremely low values that are close to zero. In the HBOS, it seems like there is a cutoff below values of around 50, and those are classified as anomalous. In this case, iForest is better suited to identifying when irregular behaviour begins to happen, since HBOS just tells us whenever the valve position has a low value. However, low values aren’t synonymous with anomalies - it could just be a systematic error such as when the system starts up or shuts down or changes modes. 
                   </p>
-                  <img src="assets\img\comp3.png" alt=""><img src="assets\img\comp4.png" alt="">
+                  <p><img src="assets\img\comp3.png" alt=""><img src="assets\img\comp4.png" alt=""></p>
                 <br/>
                   <p>In the airflow model, we again see that the iForest and HBOS categorize anomalies at different points. As highlighted on the figure above, there are four key differences to discuss:
                   </p>
@@ -320,7 +320,7 @@
               <ul>
                 <li>Generalize the model and make the model be able to do multivariate forecasting
                 <li>Increase prediction accuracy (applying Neural ODE to hidden states)
-              </ul>>
+              </ul>
             <br/>
             <br/>
             <!--h3> Discussions</h3>
@@ -332,7 +332,7 @@
 
           <div class="col-lg-4">
             <div class="portfolio-info">
-              <h3>5. Project information</h3>
+              <h3>Project information</h3>
               <ul>
                 <li><strong>Category</strong>: Machine Learning design</li>
                 <li><strong>Client</strong>: <a href="https://modernniagara.com/">Modern Niagara Group</a></li>
