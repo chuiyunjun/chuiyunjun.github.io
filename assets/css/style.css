@@ -456,6 +456,8 @@ section {
 --------------------------------------------------------------*/
 .portfolio .portfolio-item {
   margin-bottom: 30px;
+  padding-left: 50px;
+  padding-right: 50px;
 
 }
 .portfolio #portfolio-flters {
@@ -538,6 +540,14 @@ section {
 .portfolio .portfolio-wrap:hover .portfolio-links {
   opacity: 1;
   bottom: 0;
+}
+
+.portfolio .project-card {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.portfolio .project-card:hover {
+  opacity: 0.5;
 }
 
 /*--------------------------------------------------------------
