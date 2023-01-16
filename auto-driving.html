@@ -8,14 +8,21 @@
   <title>Chi Zhang</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-    <script src="jquery.jslatex.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>
-        $(function () {
-            $(".latex").latex();
-        });
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
     </script>
-  <!-- Favicons -->
+    <script id="MathJax-script2" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+    </script>
+
+
+    <!-- Favicons -->
   <link href="assets/img/letter-c.png" rel="icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -50,29 +57,48 @@
   <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
 
   <!-- ======= Header ======= -->
-  <header id="header">
-      <div class="d-flex flex-column">
-          <div class="profile">
+  <header id="header"  style="background-color: white!important;">
+      <div class="d-flex flex-column toc" style="margin-top: 250px" >
+          <!--div class="profile">
               <img src="assets\img\chi.jpg" alt="" class="img-fluid rounded-circle">
               <h1 class="text-light"><a href="index.html">Chi Zhang</a></h1>
               <div class="social-links mt-3 text-center">
                   <a href="mailto:chizhang0826@gmail.com" class="email"><i class="bx bx-mail-send"></i></a>
-                  <!--a href="https://www.facebook.com/profile.php?id=100013401366754" class="facebook"><i class="bx bxl-facebook"></i></a-->
                   <a href="https://www.github.com/chuiyunjun" class="github"><i class="bx bxl-github"></i></a>
                   <a href="https://www.linkedin.com/in/chi-zhang-220a3517a/" class="linkedin"><i class="bx bxl-linkedin-square"></i></a>
               </div>
-          </div>
+          </div-->
 
-          <nav id="navbar" class="nav-menu navbar">
+          <!--nav id="navbar" class="nav-menu navbar">
               <ul>
-                  <!--li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li-->
                   <li><a href="index.html#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
-                  <!--li><a href="#education" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Education</span></a></li-->
                   <li><a href="index.html#portforlio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
-                  <!--li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>
-                  <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li-->
               </ul>
-          </nav><!-- .nav-menu -->
+          </nav--><!-- .nav-menu -->
+          <div style="font-size: x-large">
+              <li><a href="#introduction">1. Introduction</a></li>
+          </div>
+          <div style="font-size: x-large"><li><a href="#detection">2. Object Detection</a></li></div>
+          <div style="padding-left: 20px">
+              <ul>
+                  <li><a href="#2-1">2.1 Related concepts</a></li>
+                  <li><a href="#2-2">2.2 Methods</a></li>
+                  <li><a href="#2-3">2.3 Visualized results</a></li>
+                  <li><a href="#2-4">2.4 Evaluation</a></li>
+                  <li><a href="#2-5">2.5 Conclusion</a></li>
+                  <li><a href="#2-6">2.6 Next steps</a></li>
+              </ul>
+          </div>
+          <div style="font-size: x-large"><li><a href="#tracking">3. Tracking</a></li></div>
+          <div style="padding-left: 20px">
+              <ul>
+                  <li><a href="#3-1">3.1 Methods</a></li>
+                  <li><a href="#3-2">3.2 Visualized Results</a></li>
+                  <li><a href="#3-3">3.3 Evaluation</a></li>
+
+              </ul>
+          </div>
+          <div style="font-size: x-large"><li><a href="#forecasting">4. Forecasting</a></li></div>
       </div>
   </header><!-- End Header -->
 
@@ -96,7 +122,6 @@
     <!-- ======= Portfolio Details Section ======= -->
     <section id="portfolio-details" class="portfolio-details">
       <div class="container">
-
         <div class="row gy-4" style="padding: 30px;">
             <div class="col-lg-12" style="align-items: center">
                 <h1> Making Your Self-driving Car Perceive the World </h1>
@@ -104,23 +129,7 @@
                 <a href="https://github.com/chuiyunjun/self-driving" class="fa fa-github"></a>
                 <br/>
             </div>
-            <div class="col-lg-4">
-                <div style="font-size: x-large">
-                    <li><a href="#introduction">1. Introduction</a></li>
-                </div>
-                <div style="font-size: x-large"><li><a href="#detection">2. Object Detection</a></li></div>
-                <div style="padding-left: 20px">
-                    <ul>
-                        <li><a href="#2-1">2.1 Related concepts</a></li>
-                        <li><a href="#2-2">2.2 Architecture</a></li>
-                        <li><a href="#2-3">2.3 Step Details</a></li>
-                        <li><a href="#2-4">2.4 Results</a></li>
-                        <li><a href="#2-5">2.5 Evaluations</a></li>
-                    </ul>
-                </div>
-                <div style="font-size: x-large"><li><a href="#tracking">3. Tracking</a></li></div>
-                <div style="font-size: x-large"><li><a href="#forecasting">4. Motion Forecasting</a></li></div>
-            </div>
+
             <div class="col-lg-8">
             <!--div class="portfolio-details-slider swiper">
               <div class="swiper-wrapper align-items-center">
@@ -153,13 +162,15 @@
                       <li>Motion Forecasting</li>
                     <br/><br/><br/>
                 </div>
+
+                <!-- Object Detection !!-->
                 <div id="detection">
                     <h3>2. Object Detection</h3>
                       <br/>
-                      Detect objects in one stage: The high-level idea is to use a
-                      neural network to predict a heatmap of where objects are located; each peak of the heatmap indicates an
-                      object’s centroid. Then, for each object, we additionally regress other attributes such as bounding box sizes
-                      and heading angles.
+                      The module is designed to detect cars in one stage. The main idea is to use a
+                      neural network to predict a heatmap of where objects are located. In heatmaps, each peak of the heatmap indicates an
+                      object’s centroid. For each object, other attributes are also predicted, such as bounding box sizes
+                      and heading angles. We also explored and compared different kinds of loss for neural network and different gaussian kernel for heatmap creation.
                       <br/>
                       <br/>
                       <details><summary>Click here for details</summary>
@@ -169,7 +180,7 @@
                                 <br/>
                                 <div >
                                     <div>
-                                        <p><b>BEV Voxel Representation:</b> Bird's-Eye-View Representation of 3D LiDAR data
+                                        <p>To visualize LiDAR 3d data in 2d images, visualization applies <b>BEV Voxel Representation</b>(Bird's-Eye-View Representation)
                                     </div>
                                     <img src="assets/img/BEV.png">
                                     <br/>
@@ -178,7 +189,7 @@
                           </div>
 
                           <div id="2-2">
-                              <h4>2.2 Architecture</h4>
+                              <h4>2.2 Methods</h4>
 
                                 <br/>
                                 <p>  The implementation of this detector can be decomposed into five parts</p>
@@ -187,41 +198,125 @@
                                     <img src="assets\img\onestage.png" width="100%" alt="">
                                     <br/><br/>
                                 </div>
+
+                              <br/>
+                              <h6>2.2.1. <b>LiDAR voxelization</b></h6> Take in an input point cloud and compute a bird's eye view ("BEV") voxel representation. This yields a 3-dimensional binary tensor $\mathcal{O} \in \{0， 1\}^{D \times H \times W}$ indicating whether each voxel is occupied, where $D$, $H$, and $W$ denote the size of the BEV voxel representation along the z-, y-, and x-axes respectively.
+                              <br/><br/>
+                              <h6>2.2.2. <b>Feature extraction</b></h6> <p>Take in the BEV voxel representation $\mathcal{O}$ and forward it into a convolutional neural netwrok ("CNN") to compute a feature grid $\mathcal{F} \in \mathbb{R}^{C \times H \times W}$. Then forward features $\mathcal{F}$ into another smaller CNN to predict dense detection outputs $\mathcal{X} \in \mathbb{R}^{7 \times H \times W}$, where the seven channels encode the detection heatmap, coordinate offsets, box sizes and heading angles.</p>
+                              <br/>
+                              <p>For heatmap creation, isotropic, anisotropic and rotated gaussian (shown as below) are applied respectively for the following steps.</p>
+                              <div>
+                                  <img src="assets/img/kernels.png" width="100%"><br/>
+                                  <sm style="color: gray">The red bounding boxes label cars. Left image applies isotropic gaussian kernel. Middle image applied anisotropic gaussian kernel. Right image applies rotated gaussian kernel.</sm>
+                              </div>
+                              <br/><br/>
+                              <h6>2.2.3. <b>Model training</b></h6> To train the model, first compute a training target tensor $\mathcal{Y} \in \mathbb{R}^{7 \times H \times W}$ from ground truth detection labels. Next, use stochastic gradient descent ("SGD") to iteratively minimize
+                              <li>square loss: $\mathcal{l}(\mathcal{X}, \mathcal{Y}) = ||\mathcal{X}-\mathcal{Y})||^2_{2}$</li>
+                              <li>Focal loss: $FL(p, y, \gamma) = -y(1 - p)^\gamma log(p) - (1-y)p^\gamma log(1-p)$</li>
+                              <li>$\alpha-$balanced Focal loss: $\alpha-FL(p, \alpha, \gamma) = -\alpha y(1 - p)^\gamma log(p) - (1-\alpha) (1-y)p^\gamma log(1-p)$</li>
+                              respectively for the following steps
+                              <br/><br/>
+                              <h6>2.2.4. <b>Model inference</b></h6> To decode detections from $\mathcal{X}$, firstly find local maximums of heatmap to get centroid of car detections and then find detections' corresponding coordinate offsets, box sizes and heading angles.
+                              <br/><br/>
+                              <h6>2.2.5. <b>Evaluation</b></h6> Finally, compute average precision ("AP") with different thresholds to evaluate the performance of the detector. And visualize the corresponding precision/recall curve ("PR Curve").
+                                  <br/>
+                                  <br/>
                           </div>
                           <div id="2-3">
-                                <h4>2.3. Step Details</h4>
+                              <h4>2.3. Visualized results</h4>
 
-                                <img src="assets\img\ob_steps.png" width="100%" alt="">
-                                  <br/>
-                                  <br/>
-                          </div>
-                          <div id="2-4">
-                              <h4>2.4. Results</h4>
+                                  <h5>2.3.1 LiDAR voxelization.</h5>
 
-                                  <h5>2.4.1 LiDAR voxelization.</h5>
+                                   <div>
+                                       <img src="assets/img/step=0.25.png" width="100%"><br/>
+                                       <div style="color: gray">
+                                            <sm>Ground truth labels of cars (green bounding boxes) in the background of BEV voxel representation.</sm>
+                                       </div>
+                                   </div>
+                                  <br/>
+                                  <h5>2.3.2 Heatmap </h5>
+                                    <div>Extract features from LiDAR 3d data</div>
                                   <div>
-                                    Label ground truth of cars (green bounding boxes) in the background of BEV voxel representation.
+                                      <img src="assets/img/2-2overfit-predicted_heatmap.png" width="100%">
+
+                                      <div style="color: gray; text-align: center">
+                                          <sm>Sample heatmap with isotropic kernel.</sm>
+                                      </div>
+                                  </div>
+                                  <div>
+                                      <img src="assets/img/match.png" width="100%">
+                                      <div style="color: gray; text-align: center">
+                                          <sm>Sample heatmap with rotated kernel.</sm>
+                                      </div>
                                   </div>
                                   <br/>
-                                  <h5>2.4.2 Detection of heatmap </h5>
-
-                                  <br/>
-                                  <h5>2.4.3 Algorithm correctness</h5>
+                                  <h5>2.3.3 Algorithm correctness</h5>
                                   <div>
                                        Try overfitting model to a single training sample. The model performs perfectly as shown. Predicted detections completely matches ground truth labels.
                                       (Predicted detections are in red and ground truth labels are in green, so we will see yellow bounding boxes of cars when they match)
                                   </div>
+                                  <div>
+                                      <img src="assets/img/2-2overfit-detections.png" width="100%">
+                                  </div>
 
                                   <br/>
-                                  <h5>2.4.4 Visualized results of trained model.</h5>
+                                  <h5>2.3.4 Visualized results of trained model.</h5>
                                   <div>
                                       Split dataset into training and validation datasets. Some visualized validation samples are shown as the following:
                                   </div>
+                              <div>
+                                  <img src="assets/img/2-3test-000.png" width="100%">
+                                  <img src="assets/img/2-3test-184.png" width="100%">
+                              </div>
                                   <br/>
                           </div>
-                          <div id="2-5">
-                              <h4> 2.5. Evaluation.</h4>
+                          <div id="2-4">
+                              <h4> 2.4. Evaluation.</h4>
+                              <div>
+                                  <img src="assets/img/loss1.png" width="90%">
+                              </div>
+                              <div style="color: gray">
+                                For alpha-balanced focal loss, hyperparameters $\alpha=0.75$ and $\gamma=0.1$ where used. For focal loss, the value of $\gamma=2$ was used.
+                              </div>
+                              <br/>
+                              <div>
+                                  <img src="assets/img/loss2.png" width="100%">
+                              </div>
+                              <div style="color: gray">
+                                  Apply average precision, with threshold 2, 4, 8, 16 and mean average preci-
+                                  sion, to evaluate different models. We could see when $\alpha$-balanced Focal Loss and isotropic gaussian kernel is applied, the model performs best.
+                              </div>
+                              <br/>
+
+
+
                           </div>
+
+                          <div id="2-5">
+                              <h4> 2.5. Conclusion</h4>
+                              <p>The model with isotropic gaussian kernel and  $\alpha$-balanced focal loss function where $\alpha=0.75$ and $\gamma=0.1$ achieves best performance.</p>
+                              <p>One reason for applying $\alpha$-balanced Focal loss is that $\alpha$ could balance the number of positive and negative samples in the dataset and the experiment proves it helps improve performance. </p>
+
+                          </div>
+                            <div id="2-6">
+                                <h4> 2.6. Next steps</h4>
+                                <p>
+                                    For kinds of gaussian kernels, it depends on other configurations of model such as loss type, as cars' sizes/headings are also included in other channels except heatmap. Reweighting the loss from all channels might be needed.
+                                </p>
+
+                                <p>
+                                    If computing resources permits, all parts of pandas datasets could be applied, which will imporve the performance
+                                </p>
+                                <p>
+                                    Another limitation of our focal loss and alpha-balanced focal loss approach is related
+                                    to hyper-parameter tuning. In order to evaluate the performance of a chosen γ
+                                    and α, the model has to be trained from scratch which is time consuming. In
+                                    our approach we used manual search which might not have produced optimal
+                                    results. For future work, algorithmic techniques for hyperparameter optimiza-
+                                    tion such as grid search, Bayesian optimization or neural networks could be used
+                                </p>
+                            </div>
+
 
 
 
@@ -230,21 +325,58 @@
                     <br/>
                 </div>
 
+
+
+                <!-- Tracking !!-->
                 <div id="tracking">
                     <h3>3. Tracking </h3>
-                    <p> This module implements a simple tracker that associates
-                        bounding boxes across a sequence of LiDAR sweeps. Specifically, given a sequence of detected bounding
-                        boxes for each LiDAR frame, the goal is to partition the bounding boxes into a set of tracklets, where each
-                        tracklet is associated with a unique object that moves across frames.
-                        The tracker  conducts tracking in an online manner. That is, we start with the first frame
-                        at time step 0, we then assign a unique object ID to every detected bounding box in the first frame, and
-                        initialize the respective tracklet to contain the associated bounding box. Then, at each time step t, we track
-                        the new detections by matching against previous observations. To simplify the process, instead of matching
-                        against all previous bounding boxes, we only associate the bounding boxes in the current frame with the
-                        bounding boxes in the previous frame at time step t −1.</p>
+                    <p> We applied one tracker to track one unique vehicle across a sequence of LiDAR frames in the order of time. For detected bounding
+                        boxes in each LiDAR frame, the goal is to partition the bounding boxes into a set of trackers.
+                         At each timestamp, we tracked the new detections by matching against previous observations. </p>
                         <br/>
-                    <img src="assets\img\tr_steps.png"  width="100%" alt="">
-                    <br/>
+
+                    <details><summary>Click here for details</summary>
+                        <br/>
+                        <div id="3-1">
+                            <h4> 3.1. Methods</h4>
+                            <br/>
+                            <h6> 3.1.1. <b>Two-Frame Tracking</b></h6> Take in M detected bounding boxes from the previous frame and N detections from the current frame, compute an assignment matrix $\mathcal{A} \in \{0, 1\}^{M \times N}$
+                            <br/><br/>
+                            <h6> 3.1.2. <b>Multi-Frame Tracking</b></h6> For a sequence of LiDAR frames in the order of time, we conducted online tracking by keep applying the two-frame tracking for the consecutive 2 frames.
+                            <br/>
+                        </div>
+                        <br/>
+                        <br/>
+                        <div id="3-2">
+                            <h4> 3.2. Visualized results</h4>
+                            <div>
+                                <div>
+                                    <img src="assets/img/log002_track_est.png" width="45%">
+                                    <img src="assets/img/log002_track_gt.png" width="45%">
+                                </div>
+                                <div>
+                                    This is a sample pair of output images. One kind of color in the image represents one vehicle. The left is estimated tracking picture generated by the tracking algorithm and the right one is the ground truth.
+                                </div>
+                            </div>
+                            <br/><br/>
+                        </div>
+                        <div id="3-3">
+                            <h4> 3.3. Evaluations</h4>
+                            We applied the following objectives:
+                            <br/><br/>
+                            <div>
+                                <li><b>MOTP</b>: multiple object tracking precision</li>
+                                <li><b>MOTA</b>: multiple object tracking accuracy</li>
+                                <li><b>MT</b>: mostly tracked</li>
+                                <li><b>LT</b>: least tracked</li>
+                                <li><b>PT</b>: partially tracked</li>
+                            </div>
+                            <br/>
+                            <img src="assets/img/tracking_eval.png" width="100%">
+                        </div>
+                        <br/>
+                    </details>
+                    <br/><br/>
                 </div>
 
                 <div id="forecasting">
@@ -282,8 +414,8 @@
 
           </div>
 
-          <!--div class="col-lg-4">
-            <div class="portfolio-info">
+          <div class="col-lg-4">
+            <!--div class="portfolio-info">
               <h3>5. Project information</h3>
               <ul>
                 <li><strong>Category</strong>: Machine Learning design</li>
@@ -306,6 +438,7 @@
 
         </div>
 
+        </div>
       </div>
     </section><!-- End Portfolio Details Section -->
 
