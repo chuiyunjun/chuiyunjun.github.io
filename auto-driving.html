@@ -59,46 +59,43 @@
   <!-- ======= Header ======= -->
   <header id="header"  style="background-color: white!important;">
       <div class="d-flex flex-column toc" style="margin-top: 250px" >
-          <!--div class="profile">
-              <img src="assets\img\chi.jpg" alt="" class="img-fluid rounded-circle">
-              <h1 class="text-light"><a href="index.html">Chi Zhang</a></h1>
-              <div class="social-links mt-3 text-center">
-                  <a href="mailto:chizhang0826@gmail.com" class="email"><i class="bx bx-mail-send"></i></a>
-                  <a href="https://www.github.com/chuiyunjun" class="github"><i class="bx bxl-github"></i></a>
-                  <a href="https://www.linkedin.com/in/chi-zhang-220a3517a/" class="linkedin"><i class="bx bxl-linkedin-square"></i></a>
-              </div>
-          </div-->
 
-          <!--nav id="navbar" class="nav-menu navbar">
-              <ul>
-                  <li><a href="index.html#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
-                  <li><a href="index.html#portforlio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
-              </ul>
-          </nav--><!-- .nav-menu -->
           <div style="font-size: x-large">
               <li><a href="#introduction">1. Introduction</a></li>
           </div>
           <div style="font-size: x-large"><li><a href="#detection">2. Object Detection</a></li></div>
           <div style="padding-left: 20px">
               <ul>
-                  <li><a href="#2-1">2.1 Related concepts</a></li>
-                  <li><a href="#2-2">2.2 Methods</a></li>
-                  <li><a href="#2-3">2.3 Visualized results</a></li>
-                  <li><a href="#2-4">2.4 Evaluation</a></li>
-                  <li><a href="#2-5">2.5 Conclusion</a></li>
-                  <li><a href="#2-6">2.6 Next steps</a></li>
+                  <li><a href="#lidar-voxelization">LiDAR Voxelization</a></li>
+                  <li><a href="#feature-extraction">Feature Extraction</a></li>
+                  <li><a href="#model-training">Model Training</a></li>
+                  <li><a href="#model-inference">Model Inference</a></li>
+                  <li><a href="#evaluation">Evaluation</a></li>
+                  <li><a href="#next-step">Next Step</a></li>
               </ul>
           </div>
           <div style="font-size: x-large"><li><a href="#tracking">3. Tracking</a></li></div>
           <div style="padding-left: 20px">
               <ul>
-                  <li><a href="#3-1">3.1 Methods</a></li>
-                  <li><a href="#3-2">3.2 Visualized Results</a></li>
-                  <li><a href="#3-3">3.3 Evaluation</a></li>
+                  <li><a href="#multi-frame-tracking">Multi-Frame Tracking</a></li>
+                  <li><a href="#tracking-evaluation">Evaluation</a></li>
+
 
               </ul>
           </div>
           <div style="font-size: x-large"><li><a href="#forecasting">4. Forecasting</a></li></div>
+          <div style="padding-left: 20px">
+              <ul>
+                  <li><a href="#encode-decode">
+                      Vehicle's states encoding and decoding</a></li>
+                  <li><a href="#analysis">Evaluation</a></li>
+                  <li><a href="#forecasting-imporvement">Improvement: Probabilistic Prediction</a></li>
+
+
+              </ul>
+          </div>
+          <div style="font-size: x-large"><li><a href="#references">References</a></li></div>
+          <div style="font-size: x-large"><li><a href="#My contribution">My contributions</a></li></div>
       </div>
   </header><!-- End Header -->
 
@@ -131,26 +128,7 @@
             </div>
 
             <div class="col-lg-8">
-            <!--div class="portfolio-details-slider swiper">
-              <div class="swiper-wrapper align-items-center">
 
-
-                <div class="swiper-slide">
-                  <img src="assets/img/pipeline.png" alt="">
-                </div>
-                <div class="swiper-slide">
-                  <img src="assets/img/ad-demo.png" alt="">
-                </div>
-
-                <div class="swiper-slide">
-                  <img src="assets/img/architecture.png" alt="">
-                </div>
-
-              </div>
-              <div class="swiper-pagination"></div>
-            </div-->
-
-            <!--h2 style="color:red">In Progress; Keep Updating</h2-->
 
             <br/>
                 <div id="introduction">
@@ -160,9 +138,11 @@
                       <li>Object Detection</li>
                       <li>Tracking</li>
                       <li>Motion Forecasting</li>
-                    <br/><br/><br/>
+                    <br/><br/>
                 </div>
 
+                <p style="color: red">I am finding labs or other kind of organizations that could sponsor me with computing resources for this project.</p>
+                <br/>
                 <!-- Object Detection !!-->
                 <div id="detection">
                     <h3>2. Object Detection</h3>
@@ -176,11 +156,11 @@
                       <details><summary>Click here for details</summary>
                           <br/>
                           <div id="2-1">
-                              <h4>2.1 Related concepts before start:</h4>
+                              <!--h4>2.1 Related concepts before start:</h4-->
                                 <br/>
                                 <div >
                                     <div>
-                                        <p>To visualize LiDAR 3d data in 2d images, visualization applies <b>BEV Voxel Representation</b>(Bird's-Eye-View Representation)
+                                        <p>To visualize LiDAR 3d data in 2d images, visualization applies <b>BEV Voxel Representation</b> (Bird's-Eye-View Representation)
                                     </div>
                                     <img src="assets/img/BEV.png">
                                     <br/>
@@ -189,7 +169,7 @@
                           </div>
 
                           <div id="2-2">
-                              <h4>2.2 Methods</h4>
+                              <!--h4>2.2 Methods</h4-->
 
                                 <br/>
                                 <p>  The implementation of this detector can be decomposed into five parts</p>
@@ -200,9 +180,16 @@
                                 </div>
 
                               <br/>
-                              <h6>2.2.1. <b>LiDAR voxelization</b></h6> Take in an input point cloud and compute a bird's eye view ("BEV") voxel representation. This yields a 3-dimensional binary tensor $\mathcal{O} \in \{0， 1\}^{D \times H \times W}$ indicating whether each voxel is occupied, where $D$, $H$, and $W$ denote the size of the BEV voxel representation along the z-, y-, and x-axes respectively.
+                              <h6 id="lidar-voxelization"><b>LiDAR voxelization</b></h6> Take in an input point cloud and compute a bird's eye view ("BEV") voxel representation. This yields a 3-dimensional binary tensor $\mathcal{O} \in \{0， 1\}^{D \times H \times W}$ indicating whether each voxel is occupied, where $D$, $H$, and $W$ denote the size of the BEV voxel representation along the z-, y-, and x-axes respectively.
+                              <div>
+                                  <img src="assets/img/step=0.25.png" width="100%"><br/>
+                                  <div style="color: gray">
+                                      <sm>Ground truth labels of cars (green bounding boxes) in the background of BEV voxel representation.</sm>
+                                  </div>
+                              </div>
+                              <br/>
                               <br/><br/>
-                              <h6>2.2.2. <b>Feature extraction</b></h6> <p>Take in the BEV voxel representation $\mathcal{O}$ and forward it into a convolutional neural netwrok ("CNN") to compute a feature grid $\mathcal{F} \in \mathbb{R}^{C \times H \times W}$. Then forward features $\mathcal{F}$ into another smaller CNN to predict dense detection outputs $\mathcal{X} \in \mathbb{R}^{7 \times H \times W}$, where the seven channels encode the detection heatmap, coordinate offsets, box sizes and heading angles.</p>
+                              <h6 id="feature-extraction"><b>Feature extraction</b></h6> <p>Take in the BEV voxel representation $\mathcal{O}$ and forward it into a convolutional neural netwrok ("CNN") to compute a feature grid $\mathcal{F} \in \mathbb{R}^{C \times H \times W}$. Then forward features $\mathcal{F}$ into another smaller CNN to predict dense detection outputs $\mathcal{X} \in \mathbb{R}^{7 \times H \times W}$, where the seven channels encode the detection heatmap, coordinate offsets, box sizes and heading angles.</p>
                               <br/>
                               <p>For heatmap creation, isotropic, anisotropic and rotated gaussian (shown as below) are applied respectively for the following steps.</p>
                               <div>
@@ -210,114 +197,77 @@
                                   <sm style="color: gray">The red bounding boxes label cars. Left image applies isotropic gaussian kernel. Middle image applied anisotropic gaussian kernel. Right image applies rotated gaussian kernel.</sm>
                               </div>
                               <br/><br/>
-                              <h6>2.2.3. <b>Model training</b></h6> To train the model, first compute a training target tensor $\mathcal{Y} \in \mathbb{R}^{7 \times H \times W}$ from ground truth detection labels. Next, use stochastic gradient descent ("SGD") to iteratively minimize
-                              <li>square loss: $\mathcal{l}(\mathcal{X}, \mathcal{Y}) = ||\mathcal{X}-\mathcal{Y})||^2_{2}$</li>
-                              <li>Focal loss: $FL(p, y, \gamma) = -y(1 - p)^\gamma log(p) - (1-y)p^\gamma log(1-p)$</li>
-                              <li>$\alpha-$balanced Focal loss: $\alpha-FL(p, \alpha, \gamma) = -\alpha y(1 - p)^\gamma log(p) - (1-\alpha) (1-y)p^\gamma log(1-p)$</li>
-                              respectively for the following steps
+                              <h6 id="model-training"> <b>Model training</b></h6> To train the model, first compute a training target tensor $\mathcal{Y} \in \mathbb{R}^{7 \times H \times W}$ from ground truth detection labels. Next, use stochastic gradient descent ("SGD") to iteratively minimize
+                              square loss: $\mathcal{l}(\mathcal{X}, \mathcal{Y}) = ||\mathcal{X}-\mathcal{Y})||^2_{2}$.
+
                               <br/><br/>
-                              <h6>2.2.4. <b>Model inference</b></h6> To decode detections from $\mathcal{X}$, firstly find local maximums of heatmap to get centroid of car detections and then find detections' corresponding coordinate offsets, box sizes and heading angles.
+                              Among 7 channels, heatmap data is not generated from a normal distribution. Cross-Entropy Loss is more suitable for classification. Further, to improve heatmap performance, we took more take of hard negative samples, i.e. give the model more "courage" when non-car pixels are hard to classify, as non-car pixels are the majority of the heatmap. We applied Focal Loss (Cross-Entropy Loss is a special case when $\gamma = 1$)
+                              $$FL(p, y, \gamma) = -y(1 - p)^\gamma log(p) - (1-y)p^\gamma log(1-p)$$, where $p \in [0, 1]$ is the probability that car exists in each heatmap pixel. It is normalized value of $\mathcal{X}_{heatmap} \in
+                              \mathbb{R}^{1 \times H \times W}$ (heatmap channel of $\mathcal{X}$). $y \in \{0, 1\}$ is the ground truth. $\gamma$ is the constant.
                               <br/><br/>
-                              <h6>2.2.5. <b>Evaluation</b></h6> Finally, compute average precision ("AP") with different thresholds to evaluate the performance of the detector. And visualize the corresponding precision/recall curve ("PR Curve").
-                                  <br/>
-                                  <br/>
-                          </div>
-                          <div id="2-3">
-                              <h4>2.3. Visualized results</h4>
 
-                                  <h5>2.3.1 LiDAR voxelization.</h5>
+                              Take 2 negative cases for example: case 1 $(p_1, y_1) = (0.1, 0)$ and $(p_2, y_2) = (0.4, 0)$. Case 1 is easy to be classified while case 2 is hard.
+                                <br/><br/>
+                              <table>
+                                  <tr>
+                                      <th></th>
+                                      <td>$\gamma = 0$</td>
+                                      <td>$\gamma = 1$</td>
+                                      <td>$\gamma = 2$</td>
+                                      <td>$\gamma = 5$</td>
+                                  </tr>
+                                  <tr>
+                                      <th>$\frac{\frac{\partial{FL}}{\partial{p}} | _{p=0.4, y=0}}{\frac{\partial{FL}}{\partial{p}} | _{p=0.1, y=0}}$</th>
 
-                                   <div>
-                                       <img src="assets/img/step=0.25.png" width="100%"><br/>
-                                       <div style="color: gray">
-                                            <sm>Ground truth labels of cars (green bounding boxes) in the background of BEV voxel representation.</sm>
-                                       </div>
-                                   </div>
-                                  <br/>
-                                  <h5>2.3.2 Heatmap </h5>
-                                    <div>Extract features from LiDAR 3d data</div>
-                                  <div>
-                                      <img src="assets/img/2-2overfit-predicted_heatmap.png" width="100%">
+                                      <td>1.5</td>
+                                      <td>1.7</td>
+                                      <td>16.7</td>
+                                      <td>1190.7</td>
+                                  </tr>
 
-                                      <div style="color: gray; text-align: center">
-                                          <sm>Sample heatmap with isotropic kernel.</sm>
-                                      </div>
-                                  </div>
-                                  <div>
-                                      <img src="assets/img/match.png" width="100%">
-                                      <div style="color: gray; text-align: center">
-                                          <sm>Sample heatmap with rotated kernel.</sm>
-                                      </div>
-                                  </div>
-                                  <br/>
-                                  <h5>2.3.3 Algorithm correctness</h5>
-                                  <div>
-                                       Try overfitting model to a single training sample. The model performs perfectly as shown. Predicted detections completely matches ground truth labels.
-                                      (Predicted detections are in red and ground truth labels are in green, so we will see yellow bounding boxes of cars when they match)
-                                  </div>
-                                  <div>
-                                      <img src="assets/img/2-2overfit-detections.png" width="100%">
-                                  </div>
+                              </table>
+                              <br/>
+                              Obviously, the gradient ratio between the samples
+                              difficulty to be classified (p = 0.4) and those easy to be classified (p=0.1) sharply
+                              increases, which makes the model take more attention to hard negative samples
+                                <br/><br/>
+                              Further, we also applied $\alpha$ in Focal Loss to balance the bias caused by imbalance between positive and negative sample numbers:
+                              $$\alpha-FL(p, \alpha, \gamma) = -\alpha y(1 - p)^\gamma log(p) - (1-\alpha) (1-y)p^\gamma log(1-p)$$
 
-                                  <br/>
-                                  <h5>2.3.4 Visualized results of trained model.</h5>
-                                  <div>
-                                      Split dataset into training and validation datasets. Some visualized validation samples are shown as the following:
-                                  </div>
+                              <br/><br/>
+                              <h6 id="model-inference"><b>Model inference</b></h6> To decode detections from $\mathcal{X}$, firstly find local maximums of heatmap to get centroid of car detections and then find detections' corresponding coordinate offsets, box sizes and heading angles.
+                              <br/><br/>
                               <div>
+                                  <img src="assets/img/2-2overfit-detections.png" width="100%">
                                   <img src="assets/img/2-3test-000.png" width="100%">
-                                  <img src="assets/img/2-3test-184.png" width="100%">
+                                  <div style="color: gray">
+                                      <sm>The first image is sample training dataset output of the trained model and the second image is sample test dataset output. Predicted detections are in red and ground truth labels are in green, so we will see yellow bounding boxes of cars when they match.</sm>
+                                  </div>
                               </div>
+                              <br/><br/>
+                              <h6 id="evaluation"><b>Evaluation</b></h6> Finally, compute average precision ("AP") with different thresholds to evaluate the performance of the detector. And visualize the corresponding precision/recall curve ("PR Curve").
                                   <br/>
-                          </div>
-                          <div id="2-4">
-                              <h4> 2.4. Evaluation.</h4>
+                                  <br/>
                               <div>
-                                  <img src="assets/img/loss1.png" width="90%">
+                                  <img src="assets/img/loss1.png" width="80%">
                               </div>
                               <div style="color: gray">
-                                For alpha-balanced focal loss, hyperparameters $\alpha=0.75$ and $\gamma=0.1$ where used. For focal loss, the value of $\gamma=2$ was used.
+                                  For alpha-balanced focal loss, hyperparameters $\alpha=0.75$ and $\gamma=0.1$ where used. For focal loss, the value of $\gamma=2$ was used.
                               </div>
                               <br/>
                               <div>
-                                  <img src="assets/img/loss2.png" width="100%">
+                                  <img src="assets/img/loss2.png" width="80%">
                               </div>
                               <div style="color: gray">
-                                  Apply average precision, with threshold 2, 4, 8, 16 and mean average preci-
+                                  Apply average precision, with threshold 2, 4, 8, 16 and mean average preci
                                   sion, to evaluate different models. We could see when $\alpha$-balanced Focal Loss and isotropic gaussian kernel is applied, the model performs best.
                               </div>
-                              <br/>
-
-
-
+                              <br/> <br/>
+                              <p>With standard kernel (isotropic gaussian kernel), $\alpha$-balanced focal loss trained a better model than MSE. AP values of model with $\alpha$-balanced focal loss are higher than that with MSE with all thresholds.</p>
+                              <p>However, there are no conclusion that which kind of kernel is better than others.</p>
+                              <h6 id="next-step"><b>Next Step</b></h6>
+                              For uncertain performance of different gaussian kernels, I think the reason is that  when we take  cars' sizes/headings into consideration of heatmap representation in the cases of anisotropic and rotated kernel, cars' sizes/headings are also included in other channel except heatmap. When calculating the total loss, loss of channels are summed up with weights. Hence, reweighting the loss from all channels might be needed.
                           </div>
-
-                          <div id="2-5">
-                              <h4> 2.5. Conclusion</h4>
-                              <p>The model with isotropic gaussian kernel and  $\alpha$-balanced focal loss function where $\alpha=0.75$ and $\gamma=0.1$ achieves best performance.</p>
-                              <p>One reason for applying $\alpha$-balanced Focal loss is that $\alpha$ could balance the number of positive and negative samples in the dataset and the experiment proves it helps improve performance. </p>
-
-                          </div>
-                            <div id="2-6">
-                                <h4> 2.6. Next steps</h4>
-                                <p>
-                                    For kinds of gaussian kernels, it depends on other configurations of model such as loss type, as cars' sizes/headings are also included in other channels except heatmap. Reweighting the loss from all channels might be needed.
-                                </p>
-
-                                <p>
-                                    If computing resources permits, all parts of pandas datasets could be applied, which will imporve the performance
-                                </p>
-                                <p>
-                                    Another limitation of our focal loss and alpha-balanced focal loss approach is related
-                                    to hyper-parameter tuning. In order to evaluate the performance of a chosen γ
-                                    and α, the model has to be trained from scratch which is time consuming. In
-                                    our approach we used manual search which might not have produced optimal
-                                    results. For future work, algorithmic techniques for hyperparameter optimiza-
-                                    tion such as grid search, Bayesian optimization or neural networks could be used
-                                </p>
-                            </div>
-
-
 
 
                               <br/>
@@ -338,30 +288,26 @@
                     <details><summary>Click here for details</summary>
                         <br/>
                         <div id="3-1">
-                            <h4> 3.1. Methods</h4>
                             <br/>
-                            <h6> 3.1.1. <b>Two-Frame Tracking</b></h6> Take in M detected bounding boxes from the previous frame and N detections from the current frame, compute an assignment matrix $\mathcal{A} \in \{0, 1\}^{M \times N}$
-                            <br/><br/>
-                            <h6> 3.1.2. <b>Multi-Frame Tracking</b></h6> For a sequence of LiDAR frames in the order of time, we conducted online tracking by keep applying the two-frame tracking for the consecutive 2 frames.
+                            <h6 id="multi-frame-tracking"> <b>Multi-Frame Tracking</b></h6> For a sequence of LiDAR frames in the order of time, we conducted online tracking by keep applying the two-frame tracking for the consecutive 2 frames, where two-frame tracking is taking in M detected bounding boxes from the previous frame and N detections from the current frame and computing an assignment matrix $\mathcal{A} \in \{0, 1\}^{M \times N}$ with hungarian matching algorithm.
                             <br/>
                         </div>
                         <br/>
                         <br/>
                         <div id="3-2">
-                            <h4> 3.2. Visualized results</h4>
                             <div>
                                 <div>
                                     <img src="assets/img/log002_track_est.png" width="45%">
                                     <img src="assets/img/log002_track_gt.png" width="45%">
                                 </div>
-                                <div>
-                                    This is a sample pair of output images. One kind of color in the image represents one vehicle. The left is estimated tracking picture generated by the tracking algorithm and the right one is the ground truth.
+                                <div style="color: gray">
+                                    <sm>This is a sample pair of output images. One kind of color in the image represents one vehicle. The left is estimated tracking picture generated by the tracking algorithm and the right one is the ground truth.</sm>
                                 </div>
                             </div>
                             <br/><br/>
                         </div>
                         <div id="3-3">
-                            <h4> 3.3. Evaluations</h4>
+                            <h6 id="tracking-evaluation"><b> Evaluation</b></h6>
                             We applied the following objectives:
                             <br/><br/>
                             <div>
@@ -382,61 +328,134 @@
                 <div id="forecasting">
                     <h3> 4. Motion Forecasting</h3>
                     <br/>
-                    <p>we provide the detections and trajectories produced by a known-good
-                        detector for the objects in the Pandaset. </p>
-                     <p> For each sample, an object’s current and past detections will be
-                        used as inputs for the motion prediction. At each time step (t) there are N actor detections. The number of actors in a scene varies across time, as
-                        old actors disappear from view and new ones appear. For each detection, its current and past states need to
-                        be assembled as input to the MLP, according to the size of the time window being considered. We denote
-                        the window size as W. (W = 10 would consider the past 9 frames + the current one, thus 10, etc.) For each
-                        time step, we need to encode the object state at that time.
-                        The baseline motion forecaster will predict the actor’s future trajectory based on its past trajectory only (no
-                        LiDAR, no HD map, etc.). The inputs will be an object’s current state together with its state history, and
-                        the outputs will represent the predicted state at future time steps t1,t2,...,tT , for a total of T steps, where
-                        T is a hyperparameter.
-                        Prediction tasks are typically concerned with time horizons of 5–10 seconds, which would normally mean
-                        making predictions for 50–100 future time steps, assuming a 10Hz sensor rate, which is common in LiDAR-
-                        based autonomous driving.
-                        In practice, it is not really necessary to predict waypoint coordinates for every single future time step, which
-                        can also be wasteful computationally. Instead, it is common to predict future waypoints at a lower frequency
-                        than the input frames, i.e., with a stride.
-                        We  set W = 10. We predict 5 seconds into the future, at a stride of 5
-                        frames. This means that we will predict the pose at T = 10 future positions: t + 0.5s,t + 1.0s,...t + 5.0s.</p>
-
-
+                    <p> One vehicle's future trajectory will be predicted only based on its past trajectory only. A vehicle's current state as well as its state history are assembled as input into multi-layer perception (MLP). Outputs will represent the predicted state at future $T$ timestamps. We also strided the outputs, i.e. outputs have a lower time frequency than inputs </p>
+                    <details><summary>Click here for details</summary>
                     <br/>
+                    <h6 id="encode-decode"><b>Vehicle's states encoding and decoding</b></h6>
+                    We applied vehicle's coordinates $(x, y) \in \mathbb{R}^2$ in the past frames as features. The inputs are $\mathcal{X} \in \mathbb{R}^{W \times 2}$,
+                    where W is the number of frames. Then forward the inputs into a  MLP with the latent dimension of $D$. Next decode the output of latent space to $\mathcal{Y}_{pred} \in \mathbb{R}^{N \times 2}$.
+                    At last, take L1 error $||\mathcal{Y} - \mathcal{Y}_{pred}||_{1}$ as loss to train  the MLP。
+
+                    <br/> <br/>
                     <div>
-                    <img src="assets\img\sd-forecast.jpg" width="100%" alt="">
-                    <figcaption style="text-align: center"> comparison between prediction and ground truth</figcaption>
+                        <h6 id="analysis"><b>Evaluation</b></h6>
+                        <div>
+                            We applided  average displacement error (ADE) and final displacement
+                            error (FDE) as metrics to evaluate the performance.
+
+                        </div>
+                        <br/>
+                        After tuning hyperparameters $W, D$, eventually, we got the following result.
+                        <br/>
+                        <table width="100%">
+                            <tr>
+                                <th style="border-right: 0px!important; width: 25%!important">$W$</th>
+                                <th style="border-left: 0px!important; width: 25%">$D$</th>
+                                <th style="border-right: 0px!important; width: 25%">$ADE$</th>
+                                <th style="border-left: 0px!important; width: 25%">$FDE$</th>
+                            </tr>
+
+                            <tr>
+                                <td style="border-right: 0px!important; width: 25%!important">256</td>
+                                <td style="border-left: 0px!important; width: 25%">10</td>
+                                <td style="border-right: 0px!important; width: 25%">0.57</td>
+                                <td style="border-left: 0px!important; width: 25%">1.26</td>
+                            </tr>
+
+
+                        </table>
+
                     </div>
-                    <br/>
+                    <br/><br/>
+                    <h6 id="forecasting-imporvement"><b>Improvement: Probabilistic Prediction</b></h6>
+                    Instead of predicting a waypoint $s_t=(x,y)$ at each future time step $t$, we predict a Gaussian distribution $\mathcal{N}(s_t|\mu_t, \Sigma_t)$.
+                    <br/><br/>
+                    Given the past trajectories of an agent in a scene $\mathbf{x}$, we want to predict a parametric distribution over future trajectories $\mathbf{s}$: $p(\mathbf{s}|\mathbf{x})$.
+                    <br/><br/>
+                    A trajectory $\mathbf{s}$ is a sequence of waypoints from time $t=1$ to a fixed time horizon $T$: $\mathbf{s}=[s_1, s_2, \ldots, s_T]$. We are going to model trajectory waypoint uncertainty as a Gaussian distribution parameterized by $\mu_t$ and $\Sigma_t$ which are predicted by our model as a function of $\mathbf{x}$ at each future time step $t$:
+                    \[ p(s_t|\mathbf{x}) = \mathcal{N}(s_t|\mu_t(\mathbf{x}), \Sigma_t(\mathbf{x})) \]
+                    We will train this model, parameterized by weights $\theta$, by setting the goal of our model to predict parameters for our distribution $p$ such that the likelihood of the ground-truth trajectories $\mathbf{y}$ is maximized. First, lets define our data as a list of size $N$ (number of actors), containing (history, future) pairs: $[(\mathbf{x}^1, \mathbf{y}^1), \ldots, (\mathbf{x}^N, \mathbf{y}^N)]$. We will update the weights $\theta$ according to the negative log-likelihood loss:
+                    \[ \mathcal{L}_{\text{NLL}} = -\Sigma_{n=1}^N\Sigma_{t=1}^{T}\text{log}\mathcal{N}(y_t^n|\mu_t(\mathbf{x}^n;\theta), \Sigma_t(\mathbf{x}^n;\theta))\]
+                    <br/><br/>
+                    A sample pair of visualized results are shown as the following:
+                    <img src="assets\img\sd-forecast.jpg" width="100%" alt="">
+                    <figcaption style="text-align: center; color: gray"> comparison between prediction and ground truth labels</figcaption>
+                    </details>
+                </div>
+
+                <br/><br/>
+                <div id="references">
+                    <h4><b>References</b></h4>
+                    <details><summary>Click here for details</summary>
+                        <br/>
+                    <p>[1] Keni Bernardin and Rainer Stiefelhagen. Evaluating multiple object tracking performance: The clear
+                        mot metrics. J. Image Video Process., 2008, jan 2008. </p>
+                    <p> [2] Sergio Casas, Cole Gulino, Renjie Liao, and Raquel Urtasun. SpAGNN: Spatially-aware graph neural
+                        networks for relational behavior forecasting from sensor data. In 2020 IEEE International Conference
+                        on Robotics and Automation (ICRA), 2020.</p>
+                    <p> [3] Henggang Cui, Vladan Radosavljevic, Fang-Chieh Chou, Tsung-Han Lin, Thi Nguyen, Tzu-Kuo Huang,
+                        Jeff Schneider, and Nemanja Djuric. Multimodal trajectory predictions for autonomous driving using
+                        deep convolutional networks. In 2019 International Conference on Robotics and Automation (ICRA),
+                        2019. </p>
+                    <p>    [4] Thomas Gilles, Stefano Sabatini, Dzmitry Tsishkou, Bogdan Stanciulescu, and Fabien Moutarde.
+                        HOME: heatmap output for future motion estimation. CoRR, abs/2105.10968, 2021. </p>
+                    <p>    [5] Harold W. Kuhn. The Hungarian Method for the Assignment Problem. Naval Research Logistics
+                        Quarterly, 2(1–2):83–97, March 1955. </p>
+                    <p>    [6] St ́ephanie Lef`evre, Dizan Vasquez, and Christian Laugier. A survey on motion prediction and risk
+                        assessment for intelligent vehicles. ROBOMECH journal, 1(1):1–14, 2014. </p>
+                    <p>    [7] Ming Liang, Bin Yang, Wenyuan Zeng, Yun Chen, Rui Hu, Sergio Casas, and Raquel Urtasun. Pnpnet:
+                        End-to-end perception and prediction with tracking in the loop. In Proceedings of the IEEE/CVF
+                        Conference on Computer Vision and Pattern Recognition, pages 11553–11562, 2020. </p>
+                    <p>    [8] James R. Munkres. Algorithms for the assignment and transportation problems. Journal of the Society
+                        for Industrial and Applied Mathematics, 5(1):32–38, March 1957. </p>
+                    <p>    [9] Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez,  Lukasz
+                        Kaiser, and Illia Polosukhin. Attention is all you need. Advances in neural information processing
+                        systems, 2017. </p>
+                    <p>    [10] Pengchuan Xiao, Zhenlei Shao, Steven Hao, Zishuo Zhang, Xiaolin Chai, Judy Jiao, Zesong Li, Jian
+                        Wu, Kai Sun, Kun Jiang, Yunlong Wang, and Diange Yang. Pandaset: Advanced sensor suite dataset
+                        for autonomous driving. CoRR, abs/2112.12610, 2021. </p>
+                    <p>    [11] Wenyuan Zeng, Wenjie Luo, Simon Suo, Abbas Sadat, Bin Yang, Sergio Casas, and Raquel Urtasun.
+                        End-to-end interpretable neural motion planner. In Proceedings of the IEEE/CVF Conference on Com-
+                        puter Vision and Pattern Recognition, 2019. </p>
+                    <p>    [12] Hang Zhao, Jiyang Gao, Tian Lan, Chen Sun, Benjamin Sapp, Balakrishnan Varadarajan, Yue Shen,
+                        Yi Shen, Yuning Chai, Cordelia Schmid, Congcong Li, and Dragomir Anguelov. TNT: target-driven
+                        trajectory prediction. CoRR, abs/2008.08294, 2020. </p>
+                    <p>    [13] Julius Ziegler, Philipp Bender, Markus Schreiber, Henning Lategahn, Tobias Strauss, Christoph Stiller,
+                        Thao Dang, Uwe Franke, Nils Appenrodt, Christoph G Keller, et al. Making Bertha drive—an au-
+                        tonomous journey on a historic route. IEEE Intelligent transportation systems magazine, 6(2), 2014.
+                        </p>
+                    <p>    [14] Holger Caesar, Varun Bankiti, Alex H. Lang, Sourabh Vora, Venice Erin Liong, Qiang Xu, Anush Krish-
+                    nan, Yu Pan, Giancarlo Baldan, and Oscar Beijbom. nuscenes: A multimodal dataset for autonomous
+                    driving. In 2020 IEEE/CVF Conference on Computer Vision and Pattern Recognition, CVPR 2020,
+                        Seattle, WA, USA, June 13-19, 2020, pages 11618–11628. Computer Vision Foundation / IEEE, 2020.</p>
+                    <p> [15] Alex H. Lang, Sourabh Vora, Holger Caesar, Lubing Zhou, Jiong Yang, and Oscar Beijbom. Pointpillars:
+                    Fast encoders for object detection from point clouds. In IEEE Conference on Computer Vision and Pat-
+                    tern Recognition, CVPR 2019, Long Beach, CA, USA, June 16-20, 2019, pages 12697–12705. Computer
+                        Vision Foundation / IEEE, 2019.</p>
+
+                    <p>  [16] Tsung-Yi Lin, Priya Goyal, Ross B. Girshick, Kaiming He, and Piotr Doll ́ar. Focal loss for dense object
+                    detection. In IEEE International Conference on Computer Vision, ICCV 2017, Venice, Italy, October
+                        22-29, 2017, pages 2999–3007. IEEE Computer Society, 2017.</p>
+                    <p>  [17] Pengchuan Xiao, Zhenlei Shao, Steven Hao, Zishuo Zhang, Xiaolin Chai, Judy Jiao, Zesong Li, Jian Wu,
+                    Kai Sun, Kun Jiang, Yunlong Wang, and Diange Yang. Pandaset: Advanced sensor suite dataset for
+                        autonomous driving. CoRR, abs/2112.12610, 2021.</p>
+                    <p>  [18] R. Urtasun. CSC490H1, Department of Computer Science, University of Toronto. 2022. 1</p>
+                    </details>
+                </div>
+
+                <br/><br/>
+                <div id="My contribution">
+                    <h4><b>My contribution</b></h4>
+                    The project is capstone design project from the team of Artur Kuramshin and Chi Zhang in the course CSC490H1 at University of Toronto. Each of us participated in every part and did even contribution.
                 </div>
 
           </div>
 
-          <div class="col-lg-4">
-            <!--div class="portfolio-info">
-              <h3>5. Project information</h3>
-              <ul>
-                <li><strong>Category</strong>: Machine Learning design</li>
-                <li><strong>Client</strong>: <a href="https://modernniagara.com/">Modern Niagara Group</a></li>
-                <li><strong>Project date</strong>: 2021.9 ~ 2022.4 </li>
-                <li><strong>Project URL</strong>: <a href="https://github.com/chuiyunjun/aps490">https://github.com/chuiyunjun/aps490</a></li>
-              </ul>
-            </div>
-            <div class="portfolio-description">
-              <h2>Team Member</h2>
-                <ul>
-                  <li><p>Elizabeth Chelmecki</p></li>
-                  <li><p>Anoja Muthucumaru</p></li>
-                  <li><p>Chi Zhang</p></li>
-                  <li><p>Shirley Zhang</p></li>
-                  <li><p>Sherry Zuo</p></li>
-                </ul>
-            </div>
-          </div-->
 
-        </div>
+
+          <div class="col-lg-4">
+
+            </div>
 
         </div>
       </div>
