@@ -8,10 +8,24 @@
   <title>Chi Zhang</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+  </script>
+  <script id="MathJax-script2" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+  </script>
 
   <!-- Favicons -->
   <link href="assets/img/letter-c.png" rel="icon">
   <!--link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon"-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -38,36 +52,6 @@
 
 <body>
 
-  <!-- ======= Mobile nav toggle button ======= -->
-  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
-
-  <!-- ======= Header ======= -->
-  <!--header id="header">
-    <div class="d-flex flex-column">
-
-      <div class="profile">
-        <img src="assets\img\chi.jpg" alt="" class="img-fluid rounded-circle">
-        <h1 class="text-light"><a href="index.html">Chi Zhang</a></h1>
-        <div class="social-links mt-3 text-center">
-          <a href="mailto:chizhang0826@gmail.com" class="email"><i class="bx bx-mail-send"></i></a>
-          <a href="https://www.facebook.com/profile.php?id=100013401366754" class="facebook"><i class="bx bxl-facebook"></i></a>
-          <a href="https://www.github.com/chuiyunjun" class="github"><i class="bx bxl-github"></i></a>
-          <a href="https://www.linkedin.com/in/chi-zhang-220a3517a/" class="linkedin"><i class="bx bxl-linkedin-square"></i></a>
-        </div>
-      </div>
-
-      <nav id="navbar" class="nav-menu navbar">
-        <ul>
-          <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
-          <li><a href="/#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
-          <li><a href="/#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
-          <li><a href="/#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
-          <li><a href="/#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>
-          <li><a href="/#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
-        </ul>
-      </nav>< .nav-menu >
-    </div>
-  </header--><!-- End Header -->
 
   <main id="main">
 
@@ -91,89 +75,220 @@
       <div class="container">
 
         <div class="row gy-4">
-
-          <div class="col-lg-8">
-            <!--div class="portfolio-details-slider swiper">
-              <div class="swiper-wrapper align-items-center">
-
-
-                <div class="swiper-slide">
-                  <img src="assets/img/pipeline.png" alt="">
-                </div>
-                <div class="swiper-slide">
-                  <img src="assets/img/ad-demo.png" alt="">
-                </div>
-
-                <div class="swiper-slide">
-                  <img src="assets/img/architecture.png" alt="">
-                </div>
-
-              </div>
-              <div class="swiper-pagination"></div>
-            </div-->
-
-            <!--h2 style="color:red">In Progress; Keep Updating</h2-->
+          <div class="col-lg-12" style="align-items: center">
             <h1> Denoising Diffusion Probabilistic Models </h1>
             <br/>
-            <h2>| <a href="https://github.com/chuiyunjun/score-based-diffusion">Code</a> | </h2>
+            <a href="https://github.com/chuiyunjun/score-based-diffusion" class="fa fa-github"></a>
 
-            <br/>
-            <br/>
-            <h3>1. Intorduction</h3>
-            <br/>
-            <p>First, to recap how <a href="https://yang-song.net/blog/2021/score/">score-based diffusion models</a> work.
-                 On the forward evolution of the SDE(stochastic differential equation), we solve an SDE from t=0 to t=T (using diffrax solvers).
-                  At t=0 we have our perfect uncorrupted training example, from our dataset. 
-                  At t=T we have added so much noise that we have something that looks like a random Gaussian vector.
-                   And now for all possible t in this interval, we train our score-based model to try and determine how to slightly denoise a sample.
-                Then, sampling a random Gaussian vector and repeatedly denoising (i.e. solving the reverse ODE/SDE) is our inference-time procedure for producing a sample image</p>
-            
-            <br/>
-            <p style="text-align: center;">
-                <img src="assets\img\scorefunction.png" width="100%" alt="">
-            </p>
-                
-            <br/>
-            <br/>
-            <br/>
-            <p>That inference-time procedure for producing sample is called 'denoising'
-                now what I notice is that objective, called the score-matching function
-                is VERY sensitive in what is picked for λ</p>
-
-            </p>what is currently happening is that given an SDE that diffuses data at t=0 to a normal at t=1: constant λ will essentially fail to train, while a λ that upweights the t=1 end of things will.
-                This is really surprising to me. I would have thought that the upweighting the t=0 (i.e. clean data) end of things would be more important, as during inference that where we put the "finishing touches" on denoising our sample.
-                so the main goal of this project is to address: why do we get poorer-quality samples when we've explicitly changed our loss function so that the network should do a better job? (e.g. upweighting near t=0)</p>
-            <br/>
-            <h3> 2. Detailed report</h3>
-            <br/>
-            <br/>
-            <div style="position: relative; width: 100%; padding-top: calc(100% * 2220 / 1280);">
-              <iframe src="assets\files\CSC420.pdf" style="position: absolute; width: 100%; height: 100%; top: 0;">
-              </iframe>
-            </div>
-                
           </div>
-
           <div class="col-lg-4">
-            <div class="portfolio-info">
-              <h3>5. Project information</h3>
-              <ul>
-                <li><strong>Category</strong>: Machine Learning Research</li>
-                <li><strong>Project date</strong>: 2022.3 ~ 2022.4 </li>
-                <li><strong>Project URL</strong>: <a href="https://github.com/chuiyunjun/score-based-diffusion">https://github.com/chuiyunjun/score-based-diffusion</a></li>
-              </ul>
-            </div>
-            <div class="portfolio-description">
-              <h2>Team Member</h2>
-                <ul>
+            <nav class="d-flex flex-column toc">
+              <div style="font-size: x-large">
+                Contents
+              </div>
+              <div >
+                <li><a href="#background" class="toc-title"><b>Background: Diffusion Model</b></a></li>
+                <div style="padding-left: 20px" >
+                  <ul>
+                    <li><a href="#score-matching" class="toc-title">Score Matching</a></li>
+                    <li><a href="#ddmp" class="toc-title">Denoising Diffusion Probabilistic Models</a></li>
+                    <li><a href="#limitations" class="toc-title">Limitations</a></li>
+                  </ul>
+                </div>
+                <li><a href="#methods" class="toc-title"><b>Methods</b></a></li>
+                <div style="padding-left: 20px" >
+                  <ul>
+                    <li><a href="#noising" class="toc-title">Noising</a></li>
+                    <li><a href="#denoising" class="toc-title">Denoising</a></li>
+                    <li><a href="#reweighting" class="toc-title">Reweighting</a></li>
+                  </ul>
+                </div>
+                <li><a href="#experiments" class="toc-title"><b>Experiments</b></a></li>
+                <li><a href="#references" class="toc-title"><b>References</b></a></li>
+                <li><a href="#contribution" class="toc-title"><b>Contribution</b></a></li>
 
-                  <li><p><a href="https://winniexu.ca/">Winnie Xu</a></p></li>
-                  <li><p>Chi Zhang</p></li>
-
-                </ul>
-            </div>
+              </div>
+            </nav>
           </div>
+          <div class="col-lg-8">
+            <h4 id="background"><b>1. Background: Diffusion Model</b></h4>
+            <br/>
+            <b>Idea</b> &nbsp; A continuous time stochastic process that adds infinitesimal noise to input, gradually diffusing input input data into a noise vector.
+            <br/><br/>
+            <h5 id="score-matching"><b>Score Matching</b></h5>
+            The score of a pdf $p(x)$ is $\nabla_x \log p(x)$. Score-based models can be parameterized by any non-normalized statistical model because computing the score of such a distribution does not require computing the intractable normalizing constant.
 
+            If two differentiable functions have equal first derivatives we know that $f = g + C$, if these functions are log probability density functions, then we can use the the normalization requirement (aka $\int \exp(f)dx$ = 1) to show that they're equal. From that property and from the fact that computing the score of an EBM is easier than computing the distribution itself, one can train EBMs by matching its score with the score of the data distribution<a href="#r3">[3]</a>.
+            <br/><br/>
+            <h6><b>Basic Score Matching</b></h6>
+            The basic Score Matching objective minimizes the Fisher Divergence between the distributions (half the square of the norm of the difference of the scores):
+            $$ D_F(p_{data}(x) || p_{\theta}(x)) = \mathbb{E}_{p_{data}} \left [\frac{1}{2} \sum_{i=1}^d \left (\frac{\partial E_{\theta}(x) }{\partial x_i}\right)^2 + \frac{\partial^2 E_{\theta}(x) }{(\partial x_i)^2} \right]  + C$$
+            The problem with this basic idea is that it requires computing the trace of the Hessian, which is normally quadratic in the dimensionality of x, and so extremely costly (I wonder if there isn't some Jacobian-vector-product magic that could make it efficient).
+            <br/><br/>
+            <h6><b>Denoising Score Matching</b></h6>
+            The simple score matching objective requires many regularity conditions for $\log p_{data}$, for example it should be continuously differentiable and finite everywhere. But for example a distribution of digital images is discrete and bounded, as the value of the pixels range from 0 to 255 and are integers. That makes $p_{data} = 0$ outside that range, and so its logarithm is negative infinity, making SM not directly applicable.
+            To alleviate this difficulty one can smooth the distribution by adding some noise $\tilde{x} = x + \epsilon$, with $p(\epsilon)$ being smooth. The resulting noisy data distribution $q(\tilde{x}) = \int q(\tilde{x} | x) p_{data}(x) dx$ is smooth, and so the Fisher Divergence is well-behaved. The new objective is:
+            \begin{align*}
+            D_F(q(\tilde{x}) || p_{\theta}(\tilde{x})) &=  \mathbb{E}_{q(\tilde{x})} \left[\frac{1}{2}||\nabla_x \log q(\tilde{x}) - \nabla_x \log p_{\theta}(\tilde{x}) ||_2^2\right] \\
+            &= \mathbb{E}_{q(x, \tilde{x})} \left[\frac{1}{2}||\nabla_x \log q(\tilde{x} | x) - \nabla_x \log p_{\theta}(\tilde{x}) ||_2^2\right]
+            \end{align*}
+
+            <br/><br/>
+            <h5 id="ddmp"><b>Denoising Diffusion Probabilistic Models</b></h5>
+            DDPM <a href="#r2">[2]</a> is a parameterization of the reverse diffusion process that can be interpreted as sampling from a score-based model using Langevin dynamics:
+            \begin{align*}
+            x_{t+1} &= x_t + \frac{\epsilon^2}{2\lambda}\nabla_x f_\theta(x) + \epsilon\alpha &\alpha \sim \mathcal{N}(0, I)
+            \end{align*}
+            with hyperparameters $\epsilon$ step-size and $\lambda$ temperature. Lower temperature generates samples quicker for efficient training.
+            <br/><br/>
+            <b>Problem</b> &nbsp; Let $x_0$ be a data distribution that is hard to handle; we only observe a dataset containing iid samples from it, but do not know the closed form solution of this distribution. We want to estimate it. From here-on, there are two directions:
+            <ul>
+              <li> Select a <i>diffusion process</i> to perturb an input datum into a noise vector. This is a parameter-free T-step Markov chain describing a diffusion process from data $x_0 \sim p_{data}$ to latent variable $x_T$:
+            \begin{align*}
+            q(x_1, \dots, x_T | x_0) = \prod_{t=1}^T q(x_t | x_{t-1})
+              \end{align*}</li>
+
+              <li> <i>Reverse diffusion process</i> to generate samples from a data distribution by denoising noise vectors. This requires $\log p_t$ (distribution of perturbed distribution) and is a parameterized T-step Markov chain.
+            </li>
+            </ul>
+
+            The reverse diffusion process' closed form requires solving a reverse SDE, which requires knowing the score function of the log density $\nabla \log p_t$, where $p_t$ is the distribution of the noise perturbed data at time step $t$.
+
+            <br/><br/>
+            <h5 id="limitations"><b>Limitations</b></h5>  The choice of weighting function (the $\lambda$ in $E[\lambda(t) || s(t, x) - \nabla_x log p_t(x) ||)$ is incredibly important to the success of training. Given an SDE that diffuses data at t=0 to a normal at t=1, $\lambda$ should essentially upweight the t=1 end of things, otherwise, for example a constant $\lambda$ will fail. In tuition, the upweighting the t=0 end of things would be more important, as during inference that where we put the "finishing touches" on denoising the sample. In this project, we are going to reweight things during training and analyse the process
+
+            <br/><br/><br/><br/>
+            <h4 id=“methods"><b>2. Methods</b></h4>
+
+            <br/><br/>
+            <h5 id="noising"><b>Noising</b></h5>
+            We continuously add noise to images. For images $x$ at any time $t$, the magnitude of corruption follows an SDE:
+            $$
+            dx = f(x, t)dt + g(t)dW \tag{1}
+            $$
+
+
+            For a total of N noise scales, each perturbation kernel
+            $\{p_{\alpha_i}(x | x_0)\}^N_{i=1}$ of DDPM <a href="#r2">[2]</a> corresponds to the distribution of $x_i$ in the following Markov chain:
+
+
+            $$x_i = \sqrt{1-\beta_i}x_{i-1} + \sqrt{\beta_i}z_{i-1}, i = 1, 2, 3, \dots, N \tag{2}$$
+
+
+            As N $\longrightarrow \infty$, Eq. (1) converges to the following SDE, that is, the Variance Preserving (VP) SDE:
+            $$
+            dx = - \frac{1}{2} \beta(t)xdt + \sqrt{\beta(t)}dw \tag{3}
+            $$
+
+            Then we apply the VP SDE to generate a noisy data sample to train on.
+
+            <br/><br/>
+            <h5 id="denoising"><b>Denoising</b></h5>
+            <br/>
+            <h6><b>Apply reverse SDE to denoise data</b></h6>
+
+            $$
+            dx = [f(x, t) - g^2(t)\nabla_x \log p_t(x)]dt + g(t)d\bar{W} \tag{4}
+            $$
+
+            $\nabla_x \log p_t(x)$ in Eq. (4) is the learned score function.
+
+            <br/><br/>
+            <h6><b>Score-based Model Objective</b></h6>
+            To estimate the gradient $\nabla_x\log p_t(\textbf{x})$, a score-based neural network model $s_\theta(\textbf{x}, t)$ is used. Note that unlike flow or autoregressive models, you do not need to specify an architecture respecting causality or invertibility.
+
+            <br/><br/>
+            <b>Minimize</b> &nbsp; The expected square difference between the ground truth gradient and the score model:
+            $$
+            \mathcal{J}_{SM}(\theta; \lambda(\cdot)) := \frac{1}{2} \int_0^T \mathbb{E}_{p_t(\textbf{x})}[\lambda(t) || \nabla_\textbf{x} \log p_t(\textbf{x}) - s_\theta(\textbf{x}, t)||_2^2]dt \tag{5}
+            $$
+            where $\lambda(t)$ is a positive weighting function. In practise, we select this coefficient function to beget a low variance objective. Since the ground truth is unknown, the objective cannot be directly evaluated. Instead we are getting an unbiased estimator (integral does not need to be evaluated in inclusive form, just need to 1) sample $t$, 2) sample a data point $x\sim p_t$) via denoising score-matching.
+
+            <br/><br/>
+            <b>Denoising SM</b> &nbsp; Transforms Eq.(5) to the following objective which is equivalent up to a constant independent of $\theta$:
+            $$
+            \mathcal{J}_{DSM}(\theta; \lambda(\cdot)) := \frac{1}{2} \int_0^T \mathbb{E}_{p_t(\textbf{x})p(\textbf{x}'|\textbf{x})}[\lambda(t) || \nabla_\textbf{x} \log p_t(\textbf{x}'|\textbf{x}) - s_\theta(\textbf{x}', t)||_2^2]dt \tag{6}
+            $$
+
+            where $\textbf{x}\sim p(\textbf{x})$ and $\textbf{x}'\sim p_{0_t}(\textbf{x}'|\textbf{x})$, the transition density tractably a Gaussian if drift $f_\theta(\textbf{x}, t)$ is linear in $\textbf{x}$.
+
+
+            <br/><br/>
+            <h5 id="reweighting"><b>Reweighting</b></h5>
+            As described in Section 1.2, we expect that rescheduling the weight schedule (i.e. $\lambda(t)$ in Eq. (5)(6)) will have changes on the sample quality. It is not clear why certain choices are worse than others and how to select this in a princpled way without relying on the underlying properties of the SDE.
+            <br/><br/><br/><br/>
+            <h4 id=“experiments"><b>3. Experiments</b></h4>
+            Below we trained a score-based generative model with the denoising objective while interpreting the forward corruption process as a VP SDE. Using the corresponding variance of the converging transity density as the weighting function, we obtain the following result by sampling with the probability flow ODE:
+            \begin{align*}
+            dx &= \left[ f(x,t) - \frac{1}{2}g(t)^2\nabla_x \log p_t(x) \right] dt
+            \end{align*}
+
+            The MNIST model was trained for 100k iterations. Due to computational constraints, the CIFAR10 model was only trained for 60k iterations. As a further enhancement to the model architecture, we use time-dependent layers as introduced in <a href="#r1">[1]</a> called $\texttt{ConcatSquash}$, which is a linear layer that takes in $t$ (time) and is commonly used in training neural differential equation models. Further, we explore the use of an $\textit{MLPMixer2d}$ (Mixer model with 2D convolutions)<a href="#r4">[4]</a>, which is significantly faster to train compared to the UNet architecture commonly used by the diffusion model community.
+
+            The model architecture parameters were:
+            <ul>
+              <li>$\texttt{patch_size}: 4$</li>
+              <li>$\texttt{hidden_size}: 64$</li>
+              <li>$\texttt{mix_patch_size}: 512$</li>
+              <li>$\texttt{mix_hidden_size}: 512$</li>
+              <li>$\texttt{num_blocks}: 4$</li>
+            </ul>
+
+
+            <div>
+              <img src="assets\img\loss_curve_mnist.png" width="100%" alt="">
+              <figcaption style="text-align: center; color: gray">  Loss curve indicates poor training with sub-optimal weighting functions</figcaption>
+            </div>
+            <br/><br>
+            Evidently, longer training times are conducive to better results. Below are the baseline results with the weight function $1-\exp(-\int \beta(t))$.
+            <br/><br/>
+            <div>
+              <img src="assets\img\mnist_vp_minus1t_30k.png" width="45%" alt="">
+              <img src="assets\img\mnist_vpsde.png" width="45%" alt="">
+              <figcaption style="text-align: center; color: gray">  Left is samples from 100 steps of Probability Flow ODE on
+                denoising MNIST early on in training and right is the final result after training</figcaption>
+            </div>
+            <br/><br/>
+            We then tried different weighting schemes setting to different functions that weight different as-
+            pects of the time horizon differently, and notice that the results change drastically from the default
+            weighting function.
+            <br/><br/>
+            We noticed that adding small perturbations that don’t drastically change the degree to which different
+            ends of the time horizon are updated affects the sample quality in a slightly less
+            harmful manner. As per the nature of noising, using a non-monotonic weighting function such as cos
+            leads to poor results.
+            <br/><br/>
+            We are still in progress. If you are interested in it too, don't hesitate to contact me by email.
+
+            <br/><br/><br/>
+            <h4 id="references"><b>References</b></h4>
+            <br/>
+            <details><summary>Click here for more details</summary>
+            <br/>
+            <p id="r1">[1] Ricky TQ Chen, Yulia Rubanova, Jesse Bettencourt, and David K Duvenaud. Neural ordinary
+              differential equations. Advances in neural information processing systems, 31, 2018.</p>
+            <p id="r2">[2] Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. arXiv preprint
+              arXiv:2006.11239, 2020.</p>
+            <p id="r3">[3] Yang Song, Jascha Sohl-Dickstein, Diederik P Kingma, Abhishek Kumar, Stefano Ermon, and Ben
+            Poole. Score-based generative modeling through stochastic differential equations. arXiv preprint
+              arXiv:2011.13456, 2020.</p>
+            <p id="r4">[4] Ilya O Tolstikhin, Neil Houlsby, Alexander Kolesnikov, Lucas Beyer, Xiaohua Zhai, Thomas Un-
+            terthiner, Jessica Yung, Andreas Steiner, Daniel Keysers, Jakob Uszkoreit, et al. Mlp-mixer: An
+            all-mlp architecture for vision. Advances in Neural Information Processing Systems, 34, 2021.
+            6</p>
+            </details>
+
+
+            <br/><br/>
+            <h4 id="contribution"><b>My contributions</b></h4>
+            <ul>
+              <li>Added datasets pipeline (in-memory and non-in-momery dataset loader)</li>
+              <li>Evaluation part Applied inception score and FID as evaluation metrics</li>
+            </ul>
+          </div>
+          <div hidden="hidden">
+            <a href="https://clustrmaps.com/site/1bsj4"  title="Visit tracker"><img src="//www.clustrmaps.com/map_v2.png?d=vIx5C-O87l_QuEwyyshRWL52bEnZqXxOzDcPwqLKLpY&cl=ffffff" /></a>
+          </div>
         </div>
 
       </div>
