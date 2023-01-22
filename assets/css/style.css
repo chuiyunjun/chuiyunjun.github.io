@@ -1026,3 +1026,12 @@ th {
 .toc-title {
   color: black;
 }
+
+.hover-project {
+  color: black;
+}
+
+.hover-project:hover {
+  text-underline-mode: True;
+  color: gray
+}
